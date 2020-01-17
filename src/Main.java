@@ -31,8 +31,7 @@ public class Main {
     }
     private static String checkUsername(String username) {
         Admin admin = new Admin(0, 2000, "Administrator");
-        String wrong = "Wrong";
-
+        String wrong = "Try again";
             if (username.equals(admin.getUsername())) {
                 return username;
             } else if (username.equals(null)) {
