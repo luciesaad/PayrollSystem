@@ -11,6 +11,6 @@ public class MainTest {
     @Test
     public void login() {
         Main main = new Main();
-        main.Login();
+
     }
 }
