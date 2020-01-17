@@ -22,9 +22,8 @@ public class Main {
            System.out.print("Enter Username: ");
            String username = input.nextLine();
            newUser = checkUsername(username);
-           System.out.println(newUser);
            if(newUser.equals(admin.getUsername())){
-               System.out.println(newUser);
+               System.out.println("Welcome "+ newUser);
                break;
            }
        }
@@ -34,9 +33,11 @@ public class Main {
         String wrong = "Try again";
             if (username.equals(admin.getUsername())) {
                 return username;
-            } else if (username.equals(null)) {
+            } else if (username.isBlank() || username.isEmpty()) {
+                System.out.println(wrong);
                 return wrong;
             } else {
+                System.out.println(wrong);
                 return wrong;
             }
 
