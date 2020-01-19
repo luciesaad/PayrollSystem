@@ -1,13 +1,26 @@
 public abstract class Account {
+
+    private String username;
+    private String psw;
     private int accountBalance;
     private int salary;
     private String employmentRole;
 
 
-    public Account(int accountBalance, int salary, String employmentRole) {
+    public Account(String username, String password, int accountBalance, int salary, String employmentRole) {
+        this.username = username;
+        this.psw = password;
         this.accountBalance = accountBalance;
         this.salary = salary;
         this.employmentRole = employmentRole;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPsw() {
+        return psw;
     }
 
     public int getAccountBalance() {

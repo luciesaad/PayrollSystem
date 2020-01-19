@@ -1,38 +1,71 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Admin extends Account  {
-    private String username = "admin1";
-    private String psw = "admin1234";
-    private int accountBalanceAdmin;
-    private int salaryAdmin;
-    private String employmentRoleAdmin;
+
+    private static ArrayList<User> users = new ArrayList<User>();
 
     public Admin(int accountBalance, int salary, String employmentRole) {
-        super(accountBalance, salary, employmentRole);
-        this.employmentRoleAdmin = employmentRole;
-        this.salaryAdmin = salary;
-        this.accountBalanceAdmin = accountBalance;
+        super("admin1", "admin1234", accountBalance, salary, employmentRole);
     }
 
-    public int getAccountBalanceAdmin() {
-        return accountBalanceAdmin;
+    private int getIndex(String username) throws NoSuchFieldException {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                return i;
+            }
+        }
+        throw new NoSuchFieldException("User not found!");
     }
 
-    public int getSalaryAdmin() {
-        return salaryAdmin;
+    private User getUser(String username) throws NoSuchFieldException {
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                return users.get(i);
+            }
+        }
+        throw new NoSuchFieldException("User not found!");
     }
 
-    public String getEmploymentRoleAdmin() {
-        return employmentRoleAdmin;
+    public void createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
+        User newUser = new User(username, password, accountBalance, salary, employmentRole);
+        users.add(newUser);
     }
 
-    public String getUsername() {
-        return username;
+    public void deleteUser(String username) {
+        int userIndex ;
+        try {
+            userIndex = getIndex(username);
+            users.remove(userIndex);
+        } catch (NoSuchFieldException e) {
+            System.out.println("Could not delete user! Errormessage: " + e.getMessage());
+        }
     }
 
-    public String getPsw() {
-        return psw;
+
+    public String requestedUserSalary(String username){
+        int newSalary ;
+        String request ="";
+        Scanner input = new Scanner(System.in);
+        try {
+            User user = getUser(username);
+            newSalary =  user.getRequestedSalary();
+               System.out.println("approve salary y/n: ");
+               String check = input.nextLine();
+                if(check.equals( "y" )|| check.equals("Y")){
+                    user.setSalary(newSalary);
+                    request = "Your salary has been approved";
+                    return request;
+                }
+                else {
+                    request = "Your salary request has been declined ";
+                    return request;
+                }
+
+        } catch (NoSuchFieldException e){
+            System.out.println("Could not delete user! Errormessage: " + e.getMessage());
+        }
+        return request;
     }
-
-
-
-
 }
