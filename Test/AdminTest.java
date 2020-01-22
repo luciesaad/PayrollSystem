@@ -38,6 +38,6 @@ public class AdminTest {
         assertEquals("Administrator", adminTest.getEmploymentRole());
     }
 
-    @AfterClass
+    //AfterClass
 
 }
