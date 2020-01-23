@@ -8,9 +8,10 @@ public class StartProgram {
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        loginAdmin();
+        //loginAdmin();
         // Get user input
         // If Admin -> create user, change payroll, delete user
+        userInput.close();
     }
 
     private void loginAdmin() {
@@ -89,17 +90,21 @@ public class StartProgram {
         System.out.println("Menu: ");
         admin.printMenu();
         System.out.println("Enter the menu number of what you want to do: ");
+        menu = userInput.nextInt();
         while(menu != 7) {
-             menu = userInput.nextInt();
-
             switch (menu) {
                 case 1:
                     //view Account
                     admin.viewAccount();
                     System.out.print("To go back to the menu press 8: ");
+                    menu = userInput.nextInt();
+                        break;
                 case 2:
                     //Create User
-                  menuLogic.createUser();
+                    menuLogic.createUser();
+                    System.out.print("To go back to the menu press 8: ");
+                    menu = userInput.nextInt();
+                    break;
                 case 3:
                     //See Users
                 case 4:
@@ -115,9 +120,10 @@ public class StartProgram {
                     //print menu again
                     admin.printMenu();
                     System.out.println("Enter the number of what you want to do: ");
+                    menu = userInput.nextInt();
+                    break;
             }
         }
-        userInput.close();
     }
 
     public void printMenuUser(){
