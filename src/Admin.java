@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class Admin extends Account  {
+public class Admin extends Account implements MenuInterFace {
 
-    private static ArrayList<User> users = new ArrayList<User>();
+    private static ArrayList<User> users = new ArrayList<>();
 
     public Admin(int accountBalance, int salary, String employmentRole) {
         super("admin1", "admin1234", accountBalance, salary, employmentRole);
@@ -32,6 +33,7 @@ public class Admin extends Account  {
         User newUser = new User(username, password, accountBalance, salary, employmentRole);
         users.add(newUser);
     }
+
 
     public void deleteUser(String username) {
         int userIndex ;
@@ -68,4 +70,29 @@ public class Admin extends Account  {
         }
         return request;
     }
+
+    public void printAllUsers(){
+       for(int i = 0; i < users.size(); i++){
+           System.out.println(users.get(i).getUsername());
+       }
+     }
+
+     public void viewAccount(){
+      System.out.println( "Account user: " + getUsername());
+      System.out.println("Account balance: " + getAccountBalance());
+      System.out.println("Employment role: " + getEmploymentRole());
+      System.out.println("Salary: " + getSalary());
+     }
+
+     @Override
+     public void printMenu(){
+        System.out.println("1 - View Account \n" +
+                         "2 - Create User \n" +
+                        "3 - See Users \n" +
+                        "4 - Requests \n" +
+                        "5 - Pay salary \n" +
+                        "6 - Log out \n" +
+                        "7 - Turn off program \n" +
+                        "8 - See Menu again");
+     }
 }

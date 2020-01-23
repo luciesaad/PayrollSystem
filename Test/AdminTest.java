@@ -2,15 +2,20 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class AdminTest {
 
     private static Admin adminTest ;
+    private  static User userTest;
+
 
     @BeforeClass
     public static void suiteSetup() {
         adminTest = new Admin(0, 20000, "Administrator");
+        userTest = new User("pelle","pelle123", 0, 25000,"Programmer");
     }
 
     @Test
@@ -38,6 +43,14 @@ public class AdminTest {
         assertEquals("Administrator", adminTest.getEmploymentRole());
     }
 
-    @AfterClass
+    @Test
+    public void createUser(){
+        adminTest.createUser("pelle", "pelle123", 0, 23000,"programmer");
+        assertEquals("Failed to create user", "pelle", userTest.getUsername());
+    }
 
+    @Test
+    public void viewAccount(){
+
+    }
 }
