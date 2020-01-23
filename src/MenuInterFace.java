@@ -1,8 +1,7 @@
 public interface MenuInterFace {
-    //View Account
+    //View Account , finns för admin, ej user
     void viewAccount();
     //Requests
-    //shut down
     //Log out
 
     //print menu

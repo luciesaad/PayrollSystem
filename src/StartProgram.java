@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class StartProgram {
-
-
+    private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
     private User user = new User("madde","madde1",0,30000,"Programmer");
@@ -81,6 +80,9 @@ public class StartProgram {
         return (numFound && letterFound);
     }
 
+    public Admin getAdmin() {
+        return admin;
+    }
 
     public void printMenuAdmin(){
         int menu = 0;
@@ -97,7 +99,7 @@ public class StartProgram {
                     System.out.print("To go back to the menu press 8: ");
                 case 2:
                     //Create User
-                    createUserByAdmin();
+                  menuLogic.createUser();
                 case 3:
                     //See Users
                 case 4:
@@ -118,27 +120,6 @@ public class StartProgram {
         userInput.close();
     }
 
-    public void createUserByAdmin(){
-        System.out.println("Enter username: ");
-        String userName = userInput.next();
-        System.out.println("Enter Password: ");
-        String userPsw = userInput.next();
-        System.out.println("Enter Account balance: ");
-        int userAccountBalance = userInput.nextInt();
-        System.out.println("Enter salary: ");
-        int userSalary = userInput.nextInt();
-        System.out.println("Enter Employment role: ");
-        String employmentRole = userInput.nextLine();
-
-
-
-
-
-
-        admin.createUser(userName,userPsw,userAccountBalance, userSalary, employmentRole);
-    }
-
-
     public void printMenuUser(){
         System.out.println("Menu: ");
         user.printMenu();
@@ -157,6 +138,7 @@ public class StartProgram {
                 //Log out
             case 5:
                 //shut down
+                break;
             case 6:
                 //Print Menu again
                 user.printMenu();
