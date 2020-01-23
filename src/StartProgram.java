@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 public class StartProgram {
 
-    public Admin getAdmin() {
-        return admin;
-    }
 
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
@@ -12,17 +9,19 @@ public class StartProgram {
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-       // loginAdmin();
-        printMenuAdmin();
+        loginAdmin();
+        // Get user input
+        // If Admin -> create user, change payroll, delete user
     }
 
     private void loginAdmin() {
+        Scanner input = new Scanner(System.in);
         boolean loginDone = false;
         while (!loginDone){
             System.out.print("Enter Username: ");
-            String username = userInput.nextLine();
+            String username = input.nextLine();
             System.out.print("Enter Password: ");
-            String password = userInput.nextLine();
+            String password = input.nextLine();
 
             if(!usernameMatches(username)){
                 checkInputConditions(username);
@@ -81,6 +80,7 @@ public class StartProgram {
         // if combo not found, return false
         return (numFound && letterFound);
     }
+
 
     public void printMenuAdmin(){
         int menu = 0;
