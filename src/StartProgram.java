@@ -61,7 +61,7 @@ public class StartProgram {
 
     private boolean usernameMatches(String matchUsername){
             try {
-                admin.getUser(matchUsername); //since admin has access to all users, we call its getUser() method
+                admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
                 return true;
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
