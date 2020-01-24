@@ -5,7 +5,7 @@ public class StartProgram {
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
     private User user = new User("madde","madde1",0,30000,"Programmer"); //I guess we won't have this in the future?
-    private String currentUser = "";
+    public static String currentUser = "";
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
