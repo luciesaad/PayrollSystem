@@ -4,17 +4,18 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
-    private User user = new User("madde","madde1",0,30000,"Programmer");
+    private User user = new User("madde","madde1",0,30000,"Programmer"); //I guess we won't have this in the future?
+    private String currentUser = "";
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        //loginAdmin();
+        login();
         // Get user input
         // If Admin -> create user, change payroll, delete user
         userInput.close();
     }
 
-    private void loginAdmin() {
+    private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
         while (!loginDone){
@@ -23,14 +24,32 @@ public class StartProgram {
             System.out.print("Enter Password: ");
             String password = input.nextLine();
 
-            if(!usernameMatches(username)){
+
+            //if there is no username match
+            if(!username.equals(admin.getUsername()) && !usernameMatches(username)){
                 checkInputConditions(username);
-            }else{
-                if(pswMatches(password)){
+            }
+            //if admin logs in
+            else if(username.equals(admin.getUsername())){
+                if(adminPswMatches(password)){
                     loginDone = true;
-                    System.out.println("Welcome " + username);
+                    currentUser = username;
+                    System.out.println("Welcome to Administration " + username);
+                    printMenuAdmin();
                 }else{
-                    checkInputConditions(password);
+                    System.out.println("Login unsuccessful. Try again.");
+                }
+            }
+            //there is a match, but it is not admin - try to log in a regular user
+            else{
+                if(userPswMatches(username, password)){
+                    loginDone = true;
+                    currentUser = username;
+                    System.out.println("Welcome " + username);
+                    printMenuUser();
+                }
+                else{
+                    System.out.println("Login unsuccessful. Try again.");
                 }
             }
         }
@@ -40,11 +59,25 @@ public class StartProgram {
     //the get username + get psw on admin or user based on the role or something. Plus in that login method, after login done = true;
     //we should have a global private String set there to the current username that is logged in for future purposes(e.g. deleteMyAccount in User)
 
-    private boolean usernameMatches(String match){
-        return match.equals(admin.getUsername());
+    private boolean usernameMatches(String matchUsername){
+            try {
+                admin.getUser(matchUsername); //since admin has access to all users, we call its getUser() method
+                return true;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
-    private boolean pswMatches(String match){
-        return match.equals(admin.getPsw());
+    private boolean adminPswMatches(String matchPsw){
+        return matchPsw.equals(admin.getPsw());
+    }
+    private boolean userPswMatches(String matchUsername, String matchPsw){
+        try {
+            return matchPsw.equals(admin.getUser(matchUsername).getPsw());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void checkInputConditions(String input) {
@@ -80,7 +113,7 @@ public class StartProgram {
                 letterFound = true;
             }
         }
-        // if we find at least one digit and one letter, stop looping and return true
+        // if we find at least one digit and one letter, return true
         // if combo not found, return false
         return (numFound && letterFound);
     }
@@ -156,5 +189,10 @@ public class StartProgram {
 
         userInput.close();
 
+    }
+
+    //getters, setters
+    public String getCurrentUser() {
+        return currentUser;
     }
 }

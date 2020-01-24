@@ -19,7 +19,7 @@ public class Admin extends Account implements MenuInterFace {
         throw new NoSuchFieldException("User not found!");
     }
 
-    private User getUser(String username) throws NoSuchFieldException {
+    public User getUser(String username) throws NoSuchFieldException {
 
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUsername().equals(username)) {
