@@ -8,10 +8,9 @@ public class StartProgram {
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        //loginAdmin();
+        loginAdmin();
         // Get user input
         // If Admin -> create user, change payroll, delete user
-        printMenuAdmin();
         userInput.close();
     }
 
