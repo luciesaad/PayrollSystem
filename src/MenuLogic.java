@@ -5,44 +5,59 @@ import java.util.Scanner;
 public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
+    private String userName;
+    private String userPsw;
+    private String employmentRole;
+    private int userAccountBalance;
+    private int userSalary;
 
     public boolean createUser() {
        boolean userCreated = false;
-        while (!userCreated) {
-            String userName = createUsernameInput();
-            String userPsw = createUserPswInput();
-            String employmentRole = createUserEmployment();
-            int userAccountBalance = createUserAccountBalance();
-            int userSalary = createUserSalary();
+        userName = createUsernameInput();
+        userPsw = createUserPswInput();
+        employmentRole = createUserEmployment();
+        userAccountBalance = createUserAccountBalance();
+        userSalary = createUserSalary();
 
-            if(checkInput(userName, userPsw)){
+        while (!userCreated) {
+            //Check if input is empty or mismatch, ask to input again. 
+            if(userName.equals("Please enter correct username!") || userName.isEmpty()){
+              System.out.println(userName);
+              createUsernameInput();
+            }else if(userPsw.equals("Please enter correct password!") || userPsw.isEmpty()){
+                System.out.println(userPsw);
+                createUserPswInput();
+            }else if(employmentRole.equals("Please enter correct employment role!") || employmentRole.isEmpty()){
+                System.out.println(employmentRole);
+                createUserEmployment();
+            }else if(userAccountBalance == -1){
+                System.out.println("Please enter correct account balance!");
+                createUserAccountBalance();
+            }else if(userSalary == -1){
+                System.out.println("Please enter correct salary!");
+                createUserSalary();
+            }
+            else {
                 startProgram.getAdmin().createUser(userName, userPsw, userAccountBalance, userSalary, employmentRole);
-                System.out.print("User " +  startProgram.getAdmin().printUserName(userName)+ " was created");
+                System.out.println("User " +  startProgram.getAdmin().printUserName(userName)+ " was created");
                 userCreated = true;
             }
         }
         return false;
     }
 
-    protected boolean checkInput(String username, String userPsw){
-
-        //Kollar om input är empty
-        //Kollar om
-        return !username.isEmpty() && !userPsw.isEmpty();
-    }
-
     protected String createUsernameInput(){
         Scanner inputUser = new Scanner(System.in);
-        try {
+       try{
             System.out.println("Enter username: ");
-            String input = inputUser.nextLine();
-            if(input.isEmpty()){
-                throw  new InputMismatchException();
-            }
-          return input;
+           userName = inputUser.nextLine();
+           if(userName.isEmpty() || userName.isBlank()){
+               throw new InputMismatchException();
+           }
+           return userName;
       }catch (InputMismatchException e){
-          System.out.print( "Please enter valid username: ");
-          return  "Please enter valid username:";
+           userName = "Please enter correct username!";
+          return userName ;
       }
     }
 
@@ -50,10 +65,15 @@ public class MenuLogic {
         Scanner inputUser = new Scanner(System.in);
         try{
             System.out.println("Enter Password: ");
-            return inputUser.nextLine();
+            userPsw = inputUser.nextLine();
+            if(userPsw.isEmpty() || userPsw.isBlank()){
+                throw new InputMismatchException();
+            }
+            return userPsw;
         }
         catch (InputMismatchException e){
-            return "That´s not an String. Try again: ";
+            userPsw = "Please enter correct password!";
+            return userPsw;
         }
     }
 
@@ -62,11 +82,13 @@ public class MenuLogic {
         try{
             System.out.println("Enter Account balance: ");
             String inValue = inputUser.nextLine();
-            int returnValue = Integer.parseInt(inValue);
-            return returnValue;
+            userAccountBalance = Integer.parseInt(inValue);
+            if(inValue.equals("")){
+                throw new NumberFormatException();
+            }
+            return userAccountBalance;
 
-        }catch (InputMismatchException e){
-            System.out.println("That´s not an Int. Try again: ");
+        }catch (NumberFormatException e){
             return -1;
         }
     }
@@ -76,11 +98,13 @@ public class MenuLogic {
         try{
             System.out.println("Enter salary: ");
             String inValue = inputUser.nextLine();
-            int returnValue = Integer.parseInt(inValue);
-           return returnValue;
+            userSalary = Integer.parseInt(inValue);
+            if (inValue.equals("")){
+                throw new NumberFormatException();
+            }
+           return userSalary;
         }
-        catch (InputMismatchException e){
-            System.out.println("That´s not an Int. Try again: ");
+        catch (NumberFormatException e){
             return -1;
         }
     }
@@ -88,12 +112,16 @@ public class MenuLogic {
     protected String createUserEmployment(){
         Scanner inputUser = new Scanner(System.in);
         try{
-
             System.out.println("Enter Employment role: ");
-            return inputUser.nextLine();
+            employmentRole = inputUser.nextLine();
+            if(employmentRole.isEmpty() || employmentRole.isBlank()){
+                throw new InputMismatchException();
+            }
+            return employmentRole;
         }
-        catch (NoSuchElementException e){
-            return "That´s not an String. Try again: ";
+        catch (InputMismatchException e){
+            employmentRole = "Please enter correct employment role!";
+            return employmentRole;
         }
     }
 }

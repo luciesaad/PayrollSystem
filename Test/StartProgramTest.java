@@ -9,11 +9,9 @@ import static org.junit.Assert.*;
 public class StartProgramTest {
     private static StartProgram startProgram;
 
-
     @BeforeClass
     public static void suiteSetUp(){
         startProgram = new StartProgram();
-
     }
 
     @Test
