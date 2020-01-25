@@ -11,6 +11,7 @@ public class StartProgram {
         //loginAdmin();
         // Get user input
         // If Admin -> create user, change payroll, delete user
+        printMenuAdmin();
         userInput.close();
     }
 
@@ -102,11 +103,13 @@ public class StartProgram {
                 case 2:
                     //Create User
                     menuLogic.createUser();
-                    System.out.print("To go back to the menu press 8: ");
+                    System.out.println("To go back to the menu press 8: ");
                     menu = userInput.nextInt();
                     break;
                 case 3:
                     //See Users
+                    admin.printAllUsers();
+                    break;
                 case 4:
                     //Requests
                 case 5:
