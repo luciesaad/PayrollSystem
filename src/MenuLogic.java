@@ -6,9 +6,6 @@ public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
 
-
-
-
     public boolean createUser() {
        boolean userCreated = false;
         while (!userCreated) {
@@ -27,7 +24,7 @@ public class MenuLogic {
         return false;
     }
 
-    public boolean checkInput(String username, String userPsw){
+    protected boolean checkInput(String username, String userPsw){
 
         //Kollar om input är empty
         //Kollar om
