@@ -71,10 +71,11 @@ public class Admin extends Account implements MenuInterFace {
         return request;
     }
 
-    public void printAllUsers(){
-       for(int i = 0; i < users.size(); i++){
-           System.out.println(users.get(i).getUsername());
-       }
+    public String printAllUsers(){
+            for (User user : users) {
+              return user.getUsername();
+            }
+            return "Found no users";
      }
 
      public String printUserName(String user){

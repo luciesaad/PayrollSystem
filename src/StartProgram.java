@@ -111,8 +111,9 @@ public class StartProgram {
                     menu = scannerInput.nextInt();
                     break;
                 case 3:
+                    /**FIX ENDLESS LOOP*/
                     //See Users
-                    admin.printAllUsers();
+                  System.out.println(admin.printAllUsers());
                     break;
                 case 4:
                     //Requests

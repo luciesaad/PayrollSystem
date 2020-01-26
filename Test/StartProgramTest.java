@@ -50,7 +50,7 @@ public class StartProgramTest {
         String testInput = "kalle";
         assertFalse("Failed to match username for user", startProgram.usersNameMatches(testInput));
     }
-    
+
     @Test
     public void pswMatches() {
         String testInput = "admin1234";
