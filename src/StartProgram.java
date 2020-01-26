@@ -45,6 +45,7 @@ public class StartProgram {
     protected boolean pswMatches(String match){
         return match.equals(admin.getPsw());
     }
+    protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
 
     protected String checkInputConditions(String input) {
         if (input.isEmpty()) {

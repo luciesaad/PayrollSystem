@@ -80,6 +80,8 @@ public class MenuLogic {
             throw new InputMismatchException("Username value must have 6-10 characters. Please try again ");
         }else if(!startProgram.hasLetterNumCombo(username)){
             throw new InputMismatchException("Username must contain both letters and numbers. Please try again!");
+        }else if(startProgram.usersNameMatches(username)){
+            throw new InputMismatchException("please choose another username");
         }
     }
 
@@ -93,22 +95,11 @@ public class MenuLogic {
         }
     }
 
-    protected boolean createUserPsw() throws InputMismatchException{
-        String userPsw = setUserPswInput();
-        try {
-            checkUserPsw(userPsw);
-            return true;
-        }
-        catch (InputMismatchException e){
-            throw   e;
-        }
-    }
-
     protected String setUserPswInput(){
         Scanner inputUser = new Scanner(System.in);
-            System.out.println("Enter Password: ");
-            userPsw = inputUser.nextLine();
-           return userPsw;
+        System.out.println("Enter Password: ");
+        userPsw = inputUser.nextLine();
+        return userPsw;
     }
 
     protected void checkUserPsw(String userPsw){
@@ -118,6 +109,17 @@ public class MenuLogic {
             throw new InputMismatchException("Password value must have 6-10 characters. Please try again ");
         }else if(!startProgram.hasLetterNumCombo(userPsw)){
             throw new InputMismatchException("Password must contain both letters and numbers. Please try again!");
+        }
+    }
+
+    protected boolean createUserPsw() throws InputMismatchException{
+        String userPsw = setUserPswInput();
+        try {
+            checkUserPsw(userPsw);
+            return true;
+        }
+        catch (InputMismatchException e){
+            throw   e;
         }
     }
 
@@ -141,7 +143,7 @@ public class MenuLogic {
         String userAccountBalances = setUserAccountBalance();
         try{
             checkUserAccountBalance(userAccountBalances);
-            userAccountBalance = Integer.parseInt(userAccountBalances);
+            userAccountBalance += Integer.parseInt(userAccountBalances);
             return true;
         }catch (InputMismatchException e){
             throw e;
@@ -166,7 +168,7 @@ public class MenuLogic {
         String salary = setUserSalary();
         try {
             checkUserSalary(salary);
-            userSalary = Integer.parseInt(salary);
+            userSalary += Integer.parseInt(salary);
             return true;
         }catch (InputMismatchException e){
             throw e;
@@ -215,20 +217,20 @@ public class MenuLogic {
         }
         return false;
     }
-    public String getUserName() {
+    protected String getUserName() {
         return userName;
     }
-    public String getUserPsw() {
+    protected String getUserPsw() {
         return userPsw;
     }
-    public int getUserAccountBalance() {
+    protected int getUserAccountBalance() {
         return userAccountBalance;
     }
 
-    public int getUserSalary() {
+    protected int getUserSalary() {
         return userSalary;
     }
-    public String getEmploymentRole() {
+    protected String getEmploymentRole() {
         return employmentRole;
     }
 }

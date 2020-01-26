@@ -46,6 +46,12 @@ public class StartProgramTest {
     }
 
     @Test
+    public void testUsersNameMatches(){
+        String testInput = "kalle";
+        assertFalse("Failed to match username for user", startProgram.usersNameMatches(testInput));
+    }
+    
+    @Test
     public void pswMatches() {
         String testInput = "admin1234";
         assertTrue("Failed to match password", startProgram.pswMatches(testInput));
