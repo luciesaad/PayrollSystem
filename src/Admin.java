@@ -49,13 +49,6 @@ public class Admin extends Account implements MenuInterFace {
     }
 
 
-    public String printAllUsers() {
-        for (User user : User.getUsers()) {
-            return user.getUsername();
-        }
-        return "Found no users";
-
-    }
      public String printUserName(String user){
         for(int i = 0; i <User.getUsers().size(); i++){
             if(User.getUsers().get(i).getUsername().equals(user)){
@@ -84,5 +77,7 @@ public class Admin extends Account implements MenuInterFace {
                         "8 - See Menu again");
      }
 
-
+     public ArrayList<User> getArrayUsers(){
+        return getUsers();
+     }
 }

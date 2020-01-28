@@ -5,6 +5,7 @@ public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
     private static CreateUserLogic createUserLogic = new CreateUserLogic();
+    private static  ListUsersLogic listUsersLogic = new ListUsersLogic();
 
 
     public void createUser() {
@@ -60,6 +61,9 @@ public class MenuLogic {
         }
         startProgram.getAdmin().createUser(createUserLogic.getUserName(), createUserLogic.getUserPsw(), createUserLogic.getUserAccountBalance(), createUserLogic.getUserSalary(), createUserLogic.getEmploymentRole());
         System.out.println("User " +  startProgram.getAdmin().printUserName(createUserLogic.getUserName())+ " was created");
+    }
 
+    public void listAllUsers(){
+        listUsersLogic.adminUpdateUsers();
     }
 }

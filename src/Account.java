@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public abstract class Account {
-
     private String username;
     private String psw;
     private int accountBalance;
@@ -16,6 +15,8 @@ public abstract class Account {
         this.salary = salary;
         this.employmentRole = employmentRole;
     }
+
+    public void setUsername(String username) {this.username = username; }
 
     public String getUsername() {
         return username;

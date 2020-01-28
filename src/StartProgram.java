@@ -4,13 +4,13 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
-    private User user = new User("madde","madde1",0,30000,"Programmer"); //I guess we won't have this in the future?
+    private User user = new User("madde1","madde12",0,30000,"Programmer"); //I guess we won't have this in the future?
     public static String currentUser = "";
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
         //loginAdmin();
-        //printMenuAdmin();
+        printMenuAdmin();
         userInput.close();
     }
 
@@ -64,7 +64,7 @@ public class StartProgram {
     //the get username + get psw on admin or user based on the role or something. Plus in that login method, after login done = true;
     //we should have a global private String set there to the current username that is logged in for future purposes(e.g. deleteMyAccount in User)
 
-    private boolean usernameMatches(String matchUsername){
+    protected boolean usernameMatches(String matchUsername){
             try {
                 admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
                 return true;
@@ -73,10 +73,10 @@ public class StartProgram {
                 return false;
             }
     }
-    private boolean adminPswMatches(String matchPsw){
+    protected boolean adminPswMatches(String matchPsw){
         return matchPsw.equals(admin.getPsw());
     }
-    private boolean userPswMatches(String matchUsername, String matchPsw){
+    protected boolean userPswMatches(String matchUsername, String matchPsw){
         try {
             return matchPsw.equals(admin.getUser(matchUsername).getPsw());
         } catch (NoSuchFieldException e) {
@@ -135,7 +135,6 @@ public class StartProgram {
         System.out.println("Enter the menu number of what you want to do: ");
         menu = scannerInput.nextInt();
         while(menu != 7) {
-
             switch (menu) {
                 case 1:
                     //view Account
@@ -151,9 +150,14 @@ public class StartProgram {
                     break;
                 case 3:
                     //See Users
-                    //TODO: Print users with index number.
+                    //Done: Print users with index number.
                     //TODO: Be able to choose index number of the user you want to see.
                     //TODO: Get menu of the options you can do when you have choosen a number.
+                    menuLogic.listAllUsers();
+                    System.out.println("Main Menu");
+                    admin.printMenu();
+                    System.out.println("Enter the number of what you want to do: ");
+                    menu = scannerInput.nextInt();
                     break;
                 case 4:
                     //Requests
@@ -166,6 +170,7 @@ public class StartProgram {
                     break;
                 case 8:
                     //print menu again
+
                     admin.printMenu();
                     System.out.println("Enter the number of what you want to do: ");
                     menu = userInput.nextInt();
