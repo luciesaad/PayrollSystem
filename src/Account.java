@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Account {
 
     private String username;
@@ -5,7 +7,7 @@ public abstract class Account {
     private int accountBalance;
     private int salary;
     private String employmentRole;
-
+    private static ArrayList<User> users = new ArrayList<>();
 
     public Account(String username, String password, int accountBalance, int salary, String employmentRole) {
         this.username = username;
@@ -45,5 +47,29 @@ public abstract class Account {
 
     public void setEmploymentRole(String employmentRole) {
         this.employmentRole = employmentRole;
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    //static methods for finding user in arraylist - getIndex, getUser
+    public static int getIndex(String username) throws NoSuchFieldException {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                return i;
+            }
+        }
+        throw new NoSuchFieldException("User not found!");
+    }
+
+    public static User getUser(String username) throws NoSuchFieldException {
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                return users.get(i);
+            }
+        }
+        throw new NoSuchFieldException("User not found!");
     }
 }
