@@ -150,9 +150,10 @@ public class StartProgram {
                     menu = scannerInput.nextInt();
                     break;
                 case 3:
-                    /**FIX ENDLESS LOOP*/
                     //See Users
-                  System.out.println(admin.printAllUsers());
+                    //TODO: Print users with index number.
+                    //TODO: Be able to choose index number of the user you want to see.
+                    //TODO: Get menu of the options you can do when you have choosen a number.
                     break;
                 case 4:
                     //Requests

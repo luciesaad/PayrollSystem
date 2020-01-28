@@ -11,7 +11,6 @@ public class Admin extends Account implements MenuInterFace {
     public void createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
         User newUser = new User(username, password, accountBalance, salary, employmentRole);
         getUsers().add(newUser);
-        //users.add(newUser);
     }
 
     public void deleteUser(String username) {
@@ -44,7 +43,7 @@ public class Admin extends Account implements MenuInterFace {
                 }
 
         } catch (NoSuchFieldException e){
-            System.out.println("Could not delete user! Errormessage: " + e.getMessage());
+            System.out.println("Could not find a request! Errormessage: " + e.getMessage());
         }
         return request;
     }
