@@ -16,6 +16,7 @@ public abstract class Account {
         this.employmentRole = employmentRole;
     }
 
+    public void setPsw(String psw) {this.psw = psw; }
     public void setUsername(String username) {this.username = username; }
 
     public String getUsername() {

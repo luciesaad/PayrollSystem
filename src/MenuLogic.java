@@ -1,13 +1,13 @@
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
     private static CreateUserLogic createUserLogic = new CreateUserLogic();
-    private static  ListUsersLogic listUsersLogic = new ListUsersLogic();
+    private static MenuHandleUsers menuHandleUsers = new MenuHandleUsers();
 
-
+    /**This method does so that Admin can create new Users.
+     * @exception InputMismatchException */
     public void createUser() {
        boolean userNameCreated = false;
        while(!userNameCreated){
@@ -63,7 +63,8 @@ public class MenuLogic {
         System.out.println("User " +  startProgram.getAdmin().printUserName(createUserLogic.getUserName())+ " was created");
     }
 
+    /**This method calls on a method in the class MenuHandleUsers where Admin can change different things on a user*/
     public void listAllUsers(){
-        listUsersLogic.adminUpdateUsers();
+        menuHandleUsers.adminHandleUsers();
     }
 }

@@ -170,7 +170,6 @@ public class StartProgram {
                     break;
                 case 8:
                     //print menu again
-
                     admin.printMenu();
                     System.out.println("Enter the number of what you want to do: ");
                     menu = userInput.nextInt();

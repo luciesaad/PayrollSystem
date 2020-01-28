@@ -15,7 +15,7 @@ public class CreateUserLogic {
         return userName;
     }
 
-    protected void checkUserNameInput(String username){
+    public void checkUserNameInput(String username){
         if(inputIsEmpty(username)){
             throw new InputMismatchException("Username can´t be empty ");
         }else if(!startProgram.hasCorrectLength(username)){

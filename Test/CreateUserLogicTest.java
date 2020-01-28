@@ -14,7 +14,6 @@ public class CreateUserLogicTest {
     @BeforeClass
     public static void suiteSetup(){
         createUserLogic = new CreateUserLogic();
-
     }
 
     /**A integration test on input when creating a user. */
