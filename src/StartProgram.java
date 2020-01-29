@@ -9,6 +9,11 @@ public class StartProgram {
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
+        loginAdmin();
+        userInput.close();
+    }
+
+    protected void loginAdmin() {
         login();
         userInput.close();
     }
