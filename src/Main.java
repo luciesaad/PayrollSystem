@@ -5,11 +5,9 @@ public class Main {
 
     public static void main(String[] args){
         //start program
-          StartProgram start = new StartProgram();
-         start.runProgram();
-
+        StartProgram start = new StartProgram();
+        start.runProgram();
        }
-
     }
 
     /**To do list for now!*/

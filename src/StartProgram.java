@@ -4,20 +4,17 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
-    private User user = new User("madde1","madde12",0,30000,"Programmer"); //I guess we won't have this in the future?
+    private User user = new User("testUser1","testUser12",0,30000,"Programmer"); //I guess we won't have this in the future?
     public static String currentUser = "";
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        //loginAdmin();
-        printMenuAdmin();
+        loginAdmin();
         userInput.close();
     }
 
     protected void loginAdmin() {
         login();
-        // Get user input
-        // If Admin -> create user, change payroll, delete user
         userInput.close();
     }
 
@@ -150,9 +147,6 @@ public class StartProgram {
                     break;
                 case 3:
                     //See Users
-                    //Done: Print users with index number.
-                    //TODO: Be able to choose index number of the user you want to see.
-                    //TODO: Get menu of the options you can do when you have choosen a number.
                     menuLogic.listAllUsers();
                     System.out.println("Main Menu");
                     admin.printMenu();
@@ -161,10 +155,16 @@ public class StartProgram {
                     break;
                 case 4:
                     //Requests
+                    //TODO: see if you got a request and what the user want to change
                 case 5:
                     //Pay Salary
+                    //TODO:be able to payout salary for the users
+                    menuLogic.paySalary();
+                    System.out.println("To go back to menu press 8: ");
+                    menu = scannerInput.nextInt();
                 case 6:
                     //Log out
+                    //TODO:Be able to logout and login as user instead
                 case 7:
                     //shut down
                     break;
@@ -178,13 +178,13 @@ public class StartProgram {
         }
     }
 
+
+
     public void printMenuUser(){
         System.out.println("Menu: ");
         user.printMenu();
         System.out.println("Enter the number of what you want to do: ");
         int userInputInt = userInput.nextInt();
-
-
         switch (userInputInt){
             case 1 :
                 //view Account
@@ -201,9 +201,7 @@ public class StartProgram {
                 //Print Menu again
                 user.printMenu();
         }
-
         userInput.close();
-
     }
 
     //getters, setters

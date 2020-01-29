@@ -6,16 +6,21 @@ public class MenuHandleUsers {
     private static StartProgram startProgram = new StartProgram();
     private static CreateUserLogic createUserLogic = new CreateUserLogic();
     private User user;
-    private String newUserName ;
+    private String newUserName;
     private String newUserPassword;
     private String newUserSalary;
     private String newAccountBalance;
     private String newUserRole;
 
-    /**This method calls two methods, printAllUsers and chooserUSer*/
+    /**This method checks if the user array has users and if it does it
+     * calls two methods, printAllUsers and chooserUSer*/
     public void adminHandleUsers(){
-        printAllUsers();
-        chooseUser();
+        if(!startProgram.getAdmin().getArrayUsers().isEmpty()) {
+            printAllUsers();
+            chooseUser();
+        }else {
+            System.out.println("No users where found, please add users first");
+        }
     }
 
     /**This method gets all the users in the Array that holds all the users.*/
@@ -157,10 +162,10 @@ public class MenuHandleUsers {
      * @exception InputMismatchException catches a exception if username don´t pass all the
      * checks in checkUserNameInput*/
     protected void changeUserName(){
-        newUserName = changeUserNameInput();
         boolean check = false;
        while (!check){
            try{
+               newUserName = changeUserNameInput();
                checkUserNameInput(newUserName);
               check = true;
            }catch (InputMismatchException e){
@@ -190,11 +195,14 @@ public class MenuHandleUsers {
         }
     }
 
+    /**This method runs both changeUserPassword input and checkUserPassword. It continues untill checkuser'
+     * dont throw a InputMismatchException and if true it sets the new password.
+     * @exception  InputMismatchException catches it from checkUserPassword*/
     protected void changeUserPassword(){
-        newUserPassword = changeUserPasswordInput();
         boolean check = false;
         while (!check){
             try {
+                newUserPassword = changeUserPasswordInput();
                 checkUserPasswordInput(newUserPassword);
                 check = true;
             }catch (InputMismatchException e){
@@ -220,10 +228,10 @@ public class MenuHandleUsers {
     }
 
     protected void changeUserSalary(){
-        newUserSalary = changeUserSalaryInput();
         boolean check = false;
         while(!check) {
             try {
+                newUserSalary = changeUserSalaryInput();
                 checkUserSalaryInput(newUserSalary);
                 check = true;
             } catch (InputMismatchException e) {
@@ -250,10 +258,10 @@ public class MenuHandleUsers {
     }
 
     protected void changeAccountBalance(){
-        newAccountBalance = changeAccountBalanceInput();
         boolean check = false;
         while(!check){
             try{
+                newAccountBalance = changeAccountBalanceInput();
                 checkAccountBalance(newAccountBalance);
                 check = true;
             }catch (InputMismatchException e){
@@ -271,6 +279,9 @@ public class MenuHandleUsers {
         return scannerInput.nextLine();
     }
 
+    /**This method checks the input value and if not correct input it throws a exception
+     * @param newUserRole the new user employment role
+     * @exception InputMismatchException throws if not correct input is input*/
     private void checkUserRoleInput(String newUserRole) throws InputMismatchException {
         try{
             createUserLogic.checkUserEmployment(newUserRole);
@@ -279,11 +290,14 @@ public class MenuHandleUsers {
         }
     }
 
+    /**This method catches InputMismatchEception and if checkUserRoleInput dont throw one it sets the new
+     * user role value to the user.
+     * @exception InputMismatchException to check the input is correct. */
     protected void changeUserRole(){
-        newUserRole = changeUserRoleInput();
         boolean check = false;
         while(!check){
             try{
+                newUserRole = changeUserRoleInput();
                 checkUserRoleInput(newUserRole);
                 check = true;
             }catch (InputMismatchException e){
@@ -294,6 +308,8 @@ public class MenuHandleUsers {
         System.out.println("The employment role of user " + user.getUsername() + " was changed to: " + newUserRole);
     }
 
+    /**This method does so the admin can delete the user
+     * TODO: try catch on input?? Move to its own method?*/
     protected void deleteUser(){
         Scanner inputScanner = new Scanner(System.in);
         String username = user.getUsername();
@@ -305,6 +321,7 @@ public class MenuHandleUsers {
         }
     }
 
+    /**Prints the menu choices for admin when changing the account of a user*/
     public String printMenuEditUser(){
         return
                 "1 - View Account \n" +

@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Admin extends Account implements MenuInterFace {
-
+    private static MenuLogic menuLogic = new MenuLogic();
     public Admin(int accountBalance, int salary, String employmentRole) {
         super("admin1", "admin1234", accountBalance, salary, employmentRole);
     }
@@ -48,6 +48,9 @@ public class Admin extends Account implements MenuInterFace {
         return request;
     }
 
+    public void viewAccount(){
+        menuLogic.viewAdminAccount();
+    }
 
      public String printUserName(String user){
         for(int i = 0; i <User.getUsers().size(); i++){
@@ -56,13 +59,6 @@ public class Admin extends Account implements MenuInterFace {
             }
         }
          return "Cant find user";
-     }
-
-     public void viewAccount(){
-      System.out.println( "Account user: " + getUsername());
-      System.out.println("Account balance: " + getAccountBalance());
-      System.out.println("Employment role: " + getEmploymentRole());
-      System.out.println("Salary: " + getSalary());
      }
 
      @Override

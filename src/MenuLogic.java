@@ -7,7 +7,7 @@ public class MenuLogic {
     private static MenuHandleUsers menuHandleUsers = new MenuHandleUsers();
 
     /**This method does so that Admin can create new Users.
-     * @exception InputMismatchException */
+     * @exception InputMismatchException if exxception comes back it gives the message and admin gets to try again*/
     public void createUser() {
        boolean userNameCreated = false;
        while(!userNameCreated){
@@ -66,5 +66,39 @@ public class MenuLogic {
     /**This method calls on a method in the class MenuHandleUsers where Admin can change different things on a user*/
     public void listAllUsers(){
         menuHandleUsers.adminHandleUsers();
+    }
+
+    public void viewAdminAccount() {
+        System.out.println( "Account user: " + startProgram.getAdmin().getUsername());
+        System.out.println("Account balance: " + startProgram.getAdmin().getAccountBalance());
+        System.out.println("Employment role: " + startProgram.getAdmin().getEmploymentRole());
+        System.out.println("Salary: " + startProgram.getAdmin().getSalary());
+    }
+
+    public void paySalary(){
+        int newAccountBalance;
+        int oldAccountBalance;
+        int sum;
+        if(!startProgram.getAdmin().getArrayUsers().isEmpty()){
+            for (int i = 0; i < startProgram.getAdmin().getArrayUsers().size(); i++){
+                newAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getSalary();
+                oldAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getAccountBalance();
+                sum = newAccountBalance + oldAccountBalance ;
+                startProgram.getAdmin().getArrayUsers().get(i).setAccountBalance(sum);
+            }
+            newAccountBalance = startProgram.getAdmin().getSalary();
+            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            sum = newAccountBalance + oldAccountBalance;
+            startProgram.getAdmin().setAccountBalance(sum);
+            System.out.println("The salary´s are paid out");
+        }else {
+            newAccountBalance = startProgram.getAdmin().getSalary();
+            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            sum = newAccountBalance + oldAccountBalance;
+            startProgram.getAdmin().setAccountBalance(sum);
+            System.out.println("Admin was the only one that got salary payed out");
+            System.out.println("There are no users to pay out salary to");
+        }
+
     }
 }

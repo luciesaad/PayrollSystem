@@ -10,5 +10,9 @@ import static org.junit.Assert.*;
 
 public class MenuLogicTest {
 
+    @Test
+    public void testPaySalary(){
 
+        assertEquals("", );
+    }
 }
