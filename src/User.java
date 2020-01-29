@@ -11,7 +11,8 @@ public class User extends Account implements MenuInterFace {
         this.requestedRole = "";
     }
 
-    public void printMenu(){  //update: added delete my account(requirement)
+    //prints menu for user
+    public void printMenu(){
         System.out.println(
                 "1 - View Account \n" +
                 "2 - Request change of salary \n" +
@@ -88,13 +89,13 @@ public class User extends Account implements MenuInterFace {
     public int getRequestedSalary() {
         return requestedSalary;
     }
-    private void setRequestedSalary(int requestedSalary) {
+    public void setRequestedSalary(int requestedSalary) {
         this.requestedSalary = requestedSalary;
     }
     public String getRequestedRole() {
         return requestedRole;
     }
-    private void setRequestedRole(String requestedRole) {
+    public void setRequestedRole(String requestedRole) {
         this.requestedRole = requestedRole;
     }
 
