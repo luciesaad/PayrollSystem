@@ -56,9 +56,9 @@ public class Admin extends Account implements MenuInterFace {
      }
 
      public String printUserName(String user){
-        for(int i = 0; i <users.size(); i++){
-            if(users.get(i).getUsername().equals(user)){
-                return users.get(i).getUsername();
+        for(int i = 0; i <Admin.getUsers().size(); i++){
+            if(Admin.getUsers().get(i).getUsername().equals(user)){
+                return Admin.getUsers().get(i).getUsername();
             }
         }
          return "Cant find user";
