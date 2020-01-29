@@ -9,10 +9,14 @@ public class StartProgram {
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        login();
+        loginAdmin();
         userInput.close();
     }
 
+    protected void loginAdmin() {
+        login();
+        userInput.close();
+    }
     private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
