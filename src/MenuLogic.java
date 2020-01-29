@@ -1,102 +1,104 @@
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
+    private static CreateUserLogic createUserLogic = new CreateUserLogic();
+    private static MenuHandleUsers menuHandleUsers = new MenuHandleUsers();
 
-
-
-
-    public boolean createUser() {
-       boolean userCreated = false;
-        while (!userCreated) {
-            String userName = createUsernameInput();
-            String userPsw = createUserPswInput();
-            String employmentRole = createUserEmployment();
-            int userAccountBalance = createUserAccountBalance();
-            int userSalary = createUserSalary();
-
-            if(checkInput(userName, userPsw)){
-                startProgram.getAdmin().createUser(userName, userPsw, userAccountBalance, userSalary, employmentRole);
-                System.out.print("User " +  startProgram.getAdmin().printUserName(userName)+ " was created");
-                userCreated = true;
+    /**This method does so that Admin can create new Users.
+     * @exception InputMismatchException if exxception comes back it gives the message and admin gets to try again*/
+    public void createUser() {
+       boolean userNameCreated = false;
+       while(!userNameCreated){
+            try{
+                createUserLogic.createUserName();
+                userNameCreated = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                userNameCreated = false;
             }
         }
-        return false;
-    }
-
-    public boolean checkInput(String username, String userPsw){
-
-        //Kollar om input är empty
-        //Kollar om
-        return !username.isEmpty() && !userPsw.isEmpty();
-    }
-
-    protected String createUsernameInput(){
-        Scanner inputUser = new Scanner(System.in);
-        try {
-            System.out.println("Enter username: ");
-            String input = inputUser.nextLine();
-            if(input.isEmpty()){
-                throw  new InputMismatchException();
+        boolean userPswCreated = false;
+        while(!userPswCreated){
+            try{
+                createUserLogic.createUserPsw();
+                userPswCreated = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                userPswCreated = false;
             }
-          return input;
-      }catch (InputMismatchException e){
-          System.out.print( "Please enter valid username: ");
-          return  "Please enter valid username:";
-      }
+        }
+        boolean userRoleCreated = false;
+        while(!userRoleCreated){
+            try{
+                createUserLogic.createUserEmployment();
+                userRoleCreated = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                userRoleCreated = false;
+            }
+        }
+        boolean userAccountCreated = false;
+        while(!userAccountCreated){
+            try{
+                createUserLogic.createUserAccountBalance();
+                userAccountCreated = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                userAccountCreated = false;
+            }
+        }
+        boolean userSalaryCreated = false;
+        while(!userSalaryCreated){
+            try{
+                createUserLogic.createUserSalary();
+                userSalaryCreated = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+                userSalaryCreated = false;
+            }
+        }
+        startProgram.getAdmin().createUser(createUserLogic.getUserName(), createUserLogic.getUserPsw(), createUserLogic.getUserAccountBalance(), createUserLogic.getUserSalary(), createUserLogic.getEmploymentRole());
+        System.out.println("User " +  startProgram.getAdmin().printUserName(createUserLogic.getUserName())+ " was created");
     }
 
-    protected String createUserPswInput(){
-        Scanner inputUser = new Scanner(System.in);
-        try{
-            System.out.println("Enter Password: ");
-            return inputUser.nextLine();
-        }
-        catch (InputMismatchException e){
-            return "That´s not an String. Try again: ";
-        }
+    /**This method calls on a method in the class MenuHandleUsers where Admin can change different things on a user*/
+    public void listAllUsers(){
+        menuHandleUsers.adminHandleUsers();
     }
 
-    protected int createUserAccountBalance(){
-        Scanner inputUser = new Scanner(System.in);
-        try{
-            System.out.println("Enter Account balance: ");
-            String inValue = inputUser.nextLine();
-            int returnValue = Integer.parseInt(inValue);
-            return returnValue;
-
-        }catch (InputMismatchException e){
-            System.out.println("That´s not an Int. Try again: ");
-            return -1;
-        }
+    public void viewAdminAccount() {
+        System.out.println( "Account user: " + startProgram.getAdmin().getUsername());
+        System.out.println("Account balance: " + startProgram.getAdmin().getAccountBalance());
+        System.out.println("Employment role: " + startProgram.getAdmin().getEmploymentRole());
+        System.out.println("Salary: " + startProgram.getAdmin().getSalary());
     }
 
-    protected int createUserSalary(){
-        Scanner inputUser = new Scanner(System.in);
-        try{
-            System.out.println("Enter salary: ");
-            String inValue = inputUser.nextLine();
-            int returnValue = Integer.parseInt(inValue);
-           return returnValue;
+    public void paySalary(){
+        int newAccountBalance;
+        int oldAccountBalance;
+        int sum;
+        if(!startProgram.getAdmin().getArrayUsers().isEmpty()){
+            for (int i = 0; i < startProgram.getAdmin().getArrayUsers().size(); i++){
+                newAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getSalary();
+                oldAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getAccountBalance();
+                sum = newAccountBalance + oldAccountBalance ;
+                startProgram.getAdmin().getArrayUsers().get(i).setAccountBalance(sum);
+            }
+            newAccountBalance = startProgram.getAdmin().getSalary();
+            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            sum = newAccountBalance + oldAccountBalance;
+            startProgram.getAdmin().setAccountBalance(sum);
+            System.out.println("The salary´s are paid out");
+        }else {
+            newAccountBalance = startProgram.getAdmin().getSalary();
+            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            sum = newAccountBalance + oldAccountBalance;
+            startProgram.getAdmin().setAccountBalance(sum);
+            System.out.println("Admin was the only one that got salary payed out");
+            System.out.println("There are no users to pay out salary to");
         }
-        catch (InputMismatchException e){
-            System.out.println("That´s not an Int. Try again: ");
-            return -1;
-        }
-    }
 
-    protected String createUserEmployment(){
-        Scanner inputUser = new Scanner(System.in);
-        try{
-
-            System.out.println("Enter Employment role: ");
-            return inputUser.nextLine();
-        }
-        catch (NoSuchElementException e){
-            return "That´s not an String. Try again: ";
-        }
     }
 }

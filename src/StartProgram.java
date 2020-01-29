@@ -4,17 +4,19 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
-    private User user = new User("madde","madde1",0,30000,"Programmer"); //I guess we won't have this in the future?
+    private User user = new User("testUser1","testUser12",0,30000,"Programmer"); //I guess we won't have this in the future?
     public static String currentUser = "";
 
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
-        login();
-        // Get user input
-        // If Admin -> create user, change payroll, delete user
+        loginAdmin();
         userInput.close();
     }
 
+    protected void loginAdmin() {
+        login();
+        userInput.close();
+    }
     private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
@@ -23,7 +25,6 @@ public class StartProgram {
             String username = input.nextLine();
             System.out.print("Enter Password: ");
             String password = input.nextLine();
-
 
             //if there is no username match
             if(!username.equals(admin.getUsername()) && !usernameMatches(username)){
@@ -59,7 +60,7 @@ public class StartProgram {
     //the get username + get psw on admin or user based on the role or something. Plus in that login method, after login done = true;
     //we should have a global private String set there to the current username that is logged in for future purposes(e.g. deleteMyAccount in User)
 
-    private boolean usernameMatches(String matchUsername){
+    protected boolean usernameMatches(String matchUsername){
             try {
                 admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
                 return true;
@@ -68,10 +69,10 @@ public class StartProgram {
                 return false;
             }
     }
-    private boolean adminPswMatches(String matchPsw){
+    protected boolean adminPswMatches(String matchPsw){
         return matchPsw.equals(admin.getPsw());
     }
-    private boolean userPswMatches(String matchUsername, String matchPsw){
+    protected boolean userPswMatches(String matchUsername, String matchPsw){
         try {
             return matchPsw.equals(admin.getUser(matchUsername).getPsw());
         } catch (NoSuchFieldException e) {
@@ -79,28 +80,28 @@ public class StartProgram {
         }
         return false;
     }
+    protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
 
-    private void checkInputConditions(String input) {
-        String wrong = "Try again";
+    protected String checkInputConditions(String input) {
         if (input.isEmpty()) {
-            System.out.println(wrong);
+            return "Try again: ";
         } else if(!hasCorrectLength(input)){
-            System.out.println("Input value must have 6-10 characters. Please try again: ");
+           return "Input value must have 6-10 characters. Please try again: ";
         }else if(!hasLetterNumCombo(input)){
-            System.out.println("Input value must contain both letters and numbers. Please try again:");
+            return "Input value must contain both letters and numbers. Please try again:";
         } else {
-            System.out.println("Your authentication information is incorrect. Please try again.");
+            return "Your authentication information is incorrect. Please try again.";
         }
     }
 
-    private boolean hasCorrectLength(String input){
+    protected boolean hasCorrectLength(String input){
         if(input.length() < 6 || input.length() > 10){
             return false;
         }
         return true;
     }
 
-    private boolean hasLetterNumCombo(String input){
+    protected boolean hasLetterNumCombo(String input){
         StringBuilder sb = new StringBuilder();
         boolean numFound = false;
         boolean letterFound = false;
@@ -123,35 +124,46 @@ public class StartProgram {
     }
 
     public void printMenuAdmin(){
+        Scanner scannerInput = new Scanner(System.in);
         int menu = 0;
         System.out.println("Menu: ");
         admin.printMenu();
         System.out.println("Enter the menu number of what you want to do: ");
-        menu = userInput.nextInt();
+        menu = scannerInput.nextInt();
         while(menu != 7) {
             switch (menu) {
                 case 1:
                     //view Account
                     admin.viewAccount();
                     System.out.print("To go back to the menu press 8: ");
-                    menu = userInput.nextInt();
+                    menu = scannerInput.nextInt();
                         break;
                 case 2:
                     //Create User
                     menuLogic.createUser();
                     System.out.println("To go back to the menu press 8: ");
-                    menu = userInput.nextInt();
+                    menu = scannerInput.nextInt();
                     break;
                 case 3:
                     //See Users
-                    admin.printAllUsers();
+                    menuLogic.listAllUsers();
+                    System.out.println("Main Menu");
+                    admin.printMenu();
+                    System.out.println("Enter the number of what you want to do: ");
+                    menu = scannerInput.nextInt();
                     break;
                 case 4:
                     //Requests
+                    //TODO: see if you got a request and what the user want to change
                 case 5:
                     //Pay Salary
+                    //TODO:be able to payout salary for the users
+                    menuLogic.paySalary();
+                    System.out.println("To go back to menu press 8: ");
+                    menu = scannerInput.nextInt();
                 case 6:
                     //Log out
+                    //TODO:Be able to logout and login as user instead
                 case 7:
                     //shut down
                     break;
@@ -165,13 +177,13 @@ public class StartProgram {
         }
     }
 
+
+
     public void printMenuUser(){
         System.out.println("Menu: ");
         user.printMenu();
         System.out.println("Enter the number of what you want to do: ");
         int userInputInt = userInput.nextInt();
-
-
         switch (userInputInt){
             case 1 :
                 //view Account
@@ -188,9 +200,7 @@ public class StartProgram {
                 //Print Menu again
                 user.printMenu();
         }
-
         userInput.close();
-
     }
 
     //getters, setters

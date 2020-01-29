@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Admin extends Account implements MenuInterFace {
-
+    private static MenuLogic menuLogic = new MenuLogic();
     public Admin(int accountBalance, int salary, String employmentRole) {
         super("admin1", "admin1234", accountBalance, salary, employmentRole);
     }
@@ -11,7 +11,6 @@ public class Admin extends Account implements MenuInterFace {
     public void createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
         User newUser = new User(username, password, accountBalance, salary, employmentRole);
         getUsers().add(newUser);
-        //users.add(newUser);
     }
 
     public void deleteUser(String username) {
@@ -44,31 +43,22 @@ public class Admin extends Account implements MenuInterFace {
                 }
 
         } catch (NoSuchFieldException e){
-            System.out.println("Could not delete user! Errormessage: " + e.getMessage());
+            System.out.println("Could not find a request! Errormessage: " + e.getMessage());
         }
         return request;
     }
 
-    public void printAllUsers(){
-       for(int i = 0; i < Admin.getUsers().size(); i++){
-           System.out.println(Admin.getUsers().get(i).getUsername());
-       }
-     }
+    public void viewAccount(){
+        menuLogic.viewAdminAccount();
+    }
 
      public String printUserName(String user){
-        for(int i = 0; i <Admin.getUsers().size(); i++){
-            if(Admin.getUsers().get(i).getUsername().equals(user)){
-                return Admin.getUsers().get(i).getUsername();
+        for(int i = 0; i <User.getUsers().size(); i++){
+            if(User.getUsers().get(i).getUsername().equals(user)){
+                return User.getUsers().get(i).getUsername();
             }
         }
          return "Cant find user";
-     }
-
-     public void viewAccount(){
-      System.out.println( "Account user: " + getUsername());
-      System.out.println("Account balance: " + getAccountBalance());
-      System.out.println("Employment role: " + getEmploymentRole());
-      System.out.println("Salary: " + getSalary());
      }
 
      @Override
@@ -83,5 +73,7 @@ public class Admin extends Account implements MenuInterFace {
                         "8 - See Menu again");
      }
 
-
+     public ArrayList<User> getArrayUsers(){
+        return getUsers();
+     }
 }
