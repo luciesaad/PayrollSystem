@@ -13,6 +13,6 @@ public class MenuLogicTest {
     @Test
     public void testPaySalary(){
 
-        assertEquals("", );
+        // assertEquals("", );
     }
 }
