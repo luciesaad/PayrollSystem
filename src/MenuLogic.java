@@ -5,63 +5,95 @@ import java.util.Scanner;
 public class MenuLogic {
 
     private static StartProgram startProgram = new StartProgram();
-    private Scanner menulogic = new Scanner(System.in);
 
-    public void createUser() {
-        String userName = createUsername();
-        String userPsw = createUserPsw();
-        String employmentRole = createUserEmployment();
-        int userAccountBalance = createUserAccountBalance();
-        int userSalary = createUserSalary();
-        startProgram.getAdmin().createUser(userName, userPsw, userAccountBalance, userSalary, employmentRole);
+
+
+
+    public boolean createUser() {
+       boolean userCreated = false;
+        while (!userCreated) {
+            String userName = createUsernameInput();
+            String userPsw = createUserPswInput();
+            String employmentRole = createUserEmployment();
+            int userAccountBalance = createUserAccountBalance();
+            int userSalary = createUserSalary();
+
+            if(checkInput(userName, userPsw)){
+                startProgram.getAdmin().createUser(userName, userPsw, userAccountBalance, userSalary, employmentRole);
+                System.out.print("User " +  startProgram.getAdmin().printUserName(userName)+ " was created");
+                userCreated = true;
+            }
+        }
+        return false;
     }
-    private String createUsername(){
-      try {
-          System.out.println("Enter username: ");
-          return menulogic.nextLine();
+
+    public boolean checkInput(String username, String userPsw){
+
+        //Kollar om input är empty
+        //Kollar om
+        return !username.isEmpty() && !userPsw.isEmpty();
+    }
+
+    protected String createUsernameInput(){
+        Scanner inputUser = new Scanner(System.in);
+        try {
+            System.out.println("Enter username: ");
+            String input = inputUser.nextLine();
+            if(input.isEmpty()){
+                throw  new InputMismatchException();
+            }
+          return input;
       }catch (InputMismatchException e){
-          return  "That’s not "
-                  + "an String. Try again: ";
+          System.out.print( "Please enter valid username: ");
+          return  "Please enter valid username:";
       }
     }
 
-    private String createUserPsw(){
+    protected String createUserPswInput(){
+        Scanner inputUser = new Scanner(System.in);
         try{
             System.out.println("Enter Password: ");
-            return menulogic.nextLine();
+            return inputUser.nextLine();
         }
         catch (InputMismatchException e){
             return "That´s not an String. Try again: ";
         }
     }
 
-    private int createUserAccountBalance(){
+    protected int createUserAccountBalance(){
+        Scanner inputUser = new Scanner(System.in);
         try{
             System.out.println("Enter Account balance: ");
-            return menulogic.nextInt();
+            String inValue = inputUser.nextLine();
+            int returnValue = Integer.parseInt(inValue);
+            return returnValue;
 
         }catch (InputMismatchException e){
             System.out.println("That´s not an Int. Try again: ");
-            return 0;
+            return -1;
         }
     }
 
-    private int createUserSalary(){
+    protected int createUserSalary(){
+        Scanner inputUser = new Scanner(System.in);
         try{
             System.out.println("Enter salary: ");
-           return menulogic.nextInt();
+            String inValue = inputUser.nextLine();
+            int returnValue = Integer.parseInt(inValue);
+           return returnValue;
         }
         catch (InputMismatchException e){
             System.out.println("That´s not an Int. Try again: ");
-            return 0;
+            return -1;
         }
     }
 
-    private String createUserEmployment(){
+    protected String createUserEmployment(){
+        Scanner inputUser = new Scanner(System.in);
         try{
 
             System.out.println("Enter Employment role: ");
-            return menulogic.nextLine();
+            return inputUser.nextLine();
         }
         catch (NoSuchElementException e){
             return "That´s not an String. Try again: ";
