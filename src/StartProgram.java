@@ -236,12 +236,15 @@ public class StartProgram {
                 case 4:
                     //Delete my Account
                     try {
-                        getAdmin().getUser(currentUser).deleteMyAccount();;
+                        if(getAdmin().getUser(currentUser).deleteMyAccount()){
+                            logout();
+                        }else{
+                            System.out.println("To go back to menu press 7: ");
+                            userInputInt = userInput.nextInt();
+                        }
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
                     }
-                    System.out.println("To go back to menu press 7: ");
-                    userInputInt = userInput.nextInt();
                     break;
                 case 5:
                     //Log out
