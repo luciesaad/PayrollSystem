@@ -11,15 +11,14 @@ public class User extends Account implements MenuInterFace {
         this.requestedRole = "";
     }
 
-    public void printMenu(){  //update: added delete my account(requirement)
-        System.out.println(
-                "1 - View Account \n" +
+    public String printMenu(){  //update: added delete my account(requirement)
+        return  "1 - View Account \n" +
                 "2 - Request change of salary \n" +
                 "3 - Request change of role \n" +
                 "4 - Delete My Account \n" +
                 "5 - Log out \n" +
                 "6 - Turn off program  \n" +
-                "7 - Back to Menu ");
+                "7 - Back to Menu ";
     }
 
     public void viewAccount(String currentUser){

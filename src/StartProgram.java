@@ -87,7 +87,7 @@ public class StartProgram {
         return false;
     }
     protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
-    
+
     protected String checkInputConditions(String input) {
         if (input.isEmpty()) {
             return "Try again: ";
@@ -134,7 +134,7 @@ public class StartProgram {
         Scanner scannerInput = new Scanner(System.in);
         int menu = 0;
         System.out.println("Menu: ");
-        admin.printMenu();
+       System.out.println(admin.printMenu());
         System.out.println("Enter the menu number of what you want to do: ");
         menu = scannerInput.nextInt();
         while(menu != 7 && menu != 6) {
@@ -175,7 +175,7 @@ public class StartProgram {
                     break;
                 case 8:
                     //print menu again
-                    admin.printMenu();
+                    System.out.println(admin.printMenu());
                     System.out.println("Enter the number of what you want to do: ");
                     menu = userInput.nextInt();
                     break;
@@ -191,7 +191,7 @@ public class StartProgram {
     public void printMenuUser(){
         int userInputInt = 0;
         System.out.println("Menu: ");
-        user.printMenu();
+       System.out.println(user.printMenu());
         System.out.println("Enter the number of what you want to do: ");
         userInputInt = userInput.nextInt();
         while(userInputInt != 6 && userInputInt != 5) {
@@ -224,7 +224,7 @@ public class StartProgram {
                     break;
                 case 7:
                     //Print Menu again
-                    user.printMenu();
+                    System.out.println(user.printMenu());
                     System.out.println("Enter the number of what you want to do: ");
                     userInputInt = userInput.nextInt();
             }
