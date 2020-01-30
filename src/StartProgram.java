@@ -154,7 +154,10 @@ public class StartProgram {
                     break;
                 case 4:
                     //Requests
-                    //TODO: see if you got a request and what the user want to change
+                    admin.checkUserRequests();
+                    System.out.println("To go back to menu press 8: ");
+                    menu = scannerInput.nextInt();
+                    break;
                 case 5:
                     //Pay Salary
                     //TODO:be able to payout salary for the users
