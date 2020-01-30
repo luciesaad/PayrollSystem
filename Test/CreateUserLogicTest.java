@@ -16,15 +16,7 @@ public class CreateUserLogicTest {
         createUserLogic = new CreateUserLogic();
     }
 
-    /**A integration test on input when creating a user. */
-    @Test
-    public void testCreateUser() {
-        testSetUsernameInput();
-        testSetUserPswInput();
-        testSetUserAccountBalance();
-        testCreateUserEmployment();
-        testCreateUserSalary();
-    }
+    
 
     @Test
     public void testSetUsernameInput(){
@@ -177,11 +169,7 @@ public class CreateUserLogicTest {
 
     @Test
     public void getUserSalary(){
-        String inputUser = "45000";
-        InputStream in = new ByteArrayInputStream(inputUser.getBytes());
-        System.setIn(in);
-        createUserLogic.createUserSalary();
-        assertEquals("Failed to get user salary", 45000, createUserLogic.getUserSalary());
+        assertEquals("Failed to get user salary", 35000, createUserLogic.getUserSalary());
     }
 
 
