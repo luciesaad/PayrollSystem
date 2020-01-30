@@ -19,7 +19,6 @@ public class AdminTest {
     @BeforeClass
     public static void suiteSetup() {
         adminTest = new Admin(0, 20000, "Administrator");
-        //userTest = new User("pelle","pelle123", 0, 25000,"Programmer");
         startProgram = new StartProgram();
     }
 
@@ -49,7 +48,7 @@ public class AdminTest {
     }
 
     @Test
-    public void createUser(){
+    public void testCreateUser(){
         User user = adminTest.createUser("pelle1", "pelle123", 0, 23000,"programmer");
         assertEquals("Failed to create user", 1, adminTest.getArrayUsers().size());
         adminTest.deleteUser(user.getUsername());
@@ -67,6 +66,7 @@ public class AdminTest {
         String username = "kalle1";
         adminTest.createUser("kalle1", "kalle1234", 0, 4000,"tester");
         assertEquals("Failed to print user name", "kalle1", adminTest.printUserName(username));
+        adminTest.deleteUser(username);
     }
 
     @Test
