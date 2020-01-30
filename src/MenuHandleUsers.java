@@ -308,17 +308,45 @@ public class MenuHandleUsers {
         System.out.println("The employment role of user " + user.getUsername() + " was changed to: " + newUserRole);
     }
 
+    protected String deleteUserInput(){
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.println("Are you sure you want to delete user? ");
+        return inputScanner.nextLine();
+    }
+
+    protected String checkExceptionDeleteUserInput() throws InputMismatchException{
+        try {
+            String inputToCheck = deleteUserInput();
+            checkDeleteUserInput(inputToCheck);
+            return inputToCheck;
+        }catch (InputMismatchException e){
+            throw e;
+        }
+    }
+
+    protected void checkDeleteUserInput(String testInput){
+        if(testInput.isEmpty() || testInput.isBlank()){
+            throw new InputMismatchException("It cant be empty please choose yes or no");
+        }else if(startProgram.hasLetterNumCombo(testInput)){
+            throw new InputMismatchException("please only enter yes or no");
+        }
+
+    }
+
     /**This method does so the admin can delete the user
      * TODO: try catch on input?? Move to its own method?*/
     protected void deleteUser(){
-        Scanner inputScanner = new Scanner(System.in);
         String username = user.getUsername();
-        System.out.println("Are you sure you want to delete user? ");
-        String confirm = inputScanner.nextLine();
-        if(confirm.equals("yes") || confirm.equals("Yes") || confirm.equals("y")) {
-            startProgram.getAdmin().deleteUser(user.getUsername());
-            System.out.println("User " + username + " was deleted");
+        try{
+           String confirm = checkExceptionDeleteUserInput();
+            if(confirm.equals("yes") || confirm.equals("Yes") || confirm.equals("y")) {
+                startProgram.getAdmin().deleteUser(user.getUsername());
+                System.out.println("User " + username + " was deleted");
+            }
+        }catch (InputMismatchException e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     /**Prints the menu choices for admin when changing the account of a user*/

@@ -49,8 +49,5 @@ public class AdminTest {
         assertEquals("Failed to create user", "pelle", userTest.getUsername());
     }
 
-    @Test
-    public void viewAccount(){
 
-    }
 }
