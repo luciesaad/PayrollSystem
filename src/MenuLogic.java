@@ -67,15 +67,23 @@ public class MenuLogic {
     public void listAllUsers(){
         menuHandleUsers.adminHandleUsers();
     }
-
-    public void viewAdminAccount() {
-        System.out.println( "Account user: " + startProgram.getAdmin().getUsername());
-        System.out.println("Account balance: " + startProgram.getAdmin().getAccountBalance());
-        System.out.println("Employment role: " + startProgram.getAdmin().getEmploymentRole());
-        System.out.println("Salary: " + startProgram.getAdmin().getSalary());
+    /**This method prints out admins account values*/
+    public String viewAdminAccount(String username) {
+        username = startProgram.getAdmin().getUsername();
+      return "Account user: " + username + "\n"+
+             "Account balance: " + startProgram.getAdmin().getAccountBalance() + "\n"+
+             "Employment role: " + startProgram.getAdmin().getEmploymentRole()  + "\n"+
+             "Salary: " + startProgram.getAdmin().getSalary();
     }
 
+    /**This method runs paySalaryReturn and also prints out the return.*/
     public void paySalary(){
+        System.out.println(paySalaryReturn());
+    }
+
+    /**This method Pays out salary to the users and to admin.
+     * @return a string that tells if salary´s har paid or not*/
+    public String paySalaryReturn(){
         int newAccountBalance;
         int oldAccountBalance;
         int sum;
@@ -90,15 +98,14 @@ public class MenuLogic {
             oldAccountBalance = startProgram.getAdmin().getAccountBalance();
             sum = newAccountBalance + oldAccountBalance;
             startProgram.getAdmin().setAccountBalance(sum);
-            System.out.println("The salary´s are paid out");
+            return "The salary´s are paid out";
         }else {
             newAccountBalance = startProgram.getAdmin().getSalary();
             oldAccountBalance = startProgram.getAdmin().getAccountBalance();
             sum = newAccountBalance + oldAccountBalance;
             startProgram.getAdmin().setAccountBalance(sum);
-            System.out.println("Admin was the only one that got salary payed out");
-            System.out.println("There are no users to pay out salary to");
+            return "Admin was the only one that got salary payed out" + "There are no users to pay out salary to";
         }
-
     }
+
 }

@@ -11,23 +11,27 @@ public class User extends Account implements MenuInterFace {
         this.requestedRole = "";
     }
 
+
     //prints menu for user
-    public void printMenu(){
-        System.out.println(
-                "1 - View Account \n" +
+    public String printMenu(){  //update: added delete my account(requirement)
+        return  "1 - View Account \n" +
                 "2 - Request change of salary \n" +
                 "3 - Request change of role \n" +
                 "4 - Delete My Account \n" +
                 "5 - Log out \n" +
                 "6 - Turn off program  \n" +
-                "7 - Back to Menu ");
+                "7 - Back to Menu ";
     }
 
-    public void viewAccount(){
-        System.out.println("Account user: " + getUsername());
-        System.out.println("Account balance: " + getAccountBalance());
-        System.out.println("Employment role: " + getEmploymentRole());
-        System.out.println("Salary: " + getSalary());
+    public void viewAccount(String currentUser){
+        for(int i  = 0; i < getUsers().size(); i++){
+            if(currentUser.equals(getUsers().get(i).getUsername())){
+                System.out.println("Account user: " + getUsers().get(i).getUsername());
+                System.out.println("Account balance: " + getUsers().get(i).getAccountBalance());
+                System.out.println("Employment role: " + getUsers().get(i).getEmploymentRole());
+                System.out.println("Salary: " + getUsers().get(i).getSalary());
+            }
+        }
     }
 
     public void requestChangeSalary(){

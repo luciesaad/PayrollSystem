@@ -110,8 +110,8 @@ public class Admin extends Account implements MenuInterFace {
         return requestArrList;
     }
 
-    public void viewAccount(){
-        menuLogic.viewAdminAccount();
+    public void viewAccount(String user){
+        System.out.println(menuLogic.viewAdminAccount(user));
     }
 
      public String printUserName(String user){
@@ -124,15 +124,15 @@ public class Admin extends Account implements MenuInterFace {
      }
 
      @Override
-     public void printMenu(){
-        System.out.println("1 - View Account \n" +
+     public String printMenu(){
+        return"1 - View Account \n" +
                          "2 - Create User \n" +
                         "3 - See Users \n" +
                         "4 - Requests \n" +
                         "5 - Pay salary \n" +
                         "6 - Log out \n" +
                         "7 - Turn off program \n" +
-                        "8 - See Menu again");
+                        "8 - See Menu again";
      }
 
      public ArrayList<User> getArrayUsers(){

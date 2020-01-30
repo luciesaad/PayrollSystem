@@ -17,6 +17,7 @@ public class StartProgram {
         login();
         userInput.close();
     }
+
     private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
@@ -54,6 +55,12 @@ public class StartProgram {
                 }
             }
         }
+    }
+
+    public void logout(){
+        currentUser = "";
+        loginAdmin();
+
     }
 
     //I think we should create just one 'login' method, and update the username+pswMatches methods so that they either call
@@ -123,18 +130,19 @@ public class StartProgram {
         return admin;
     }
 
+    /**Method with switch menu for admin.*/
     public void printMenuAdmin(){
         Scanner scannerInput = new Scanner(System.in);
         int menu = 0;
         System.out.println("Menu: ");
-        admin.printMenu();
+       System.out.println(admin.printMenu());
         System.out.println("Enter the menu number of what you want to do: ");
         menu = scannerInput.nextInt();
-        while(menu != 7) {
+        while(menu != 7 && menu != 6) {
             switch (menu) {
                 case 1:
                     //view Account
-                    admin.viewAccount();
+                    admin.viewAccount(getAdmin().getUsername());
                     System.out.print("To go back to the menu press 8: ");
                     menu = scannerInput.nextInt();
                         break;
@@ -160,50 +168,75 @@ public class StartProgram {
                     break;
                 case 5:
                     //Pay Salary
-                    //TODO:be able to payout salary for the users
                     menuLogic.paySalary();
                     System.out.println("To go back to menu press 8: ");
                     menu = scannerInput.nextInt();
                 case 6:
                     //Log out
-                    //TODO:Be able to logout and login as user instead
+                    break;
                 case 7:
                     //shut down
                     break;
                 case 8:
                     //print menu again
-                    admin.printMenu();
+                    System.out.println(admin.printMenu());
                     System.out.println("Enter the number of what you want to do: ");
                     menu = userInput.nextInt();
                     break;
             }
         }
+        if(menu == 6){
+            System.out.println("You where logged out");
+            logout();
+       }
     }
 
-
-
+    /**Method with switch menu for users.*/
     public void printMenuUser(){
+        int userInputInt = 0;
         System.out.println("Menu: ");
-        user.printMenu();
+       System.out.println(user.printMenu());
         System.out.println("Enter the number of what you want to do: ");
-        int userInputInt = userInput.nextInt();
-        switch (userInputInt){
-            case 1 :
-                //view Account
-            case 2:
-                //Request change of salary
-            case 3:
-                //Request change of role
-            case 4:
-                //Log out
-            case 5:
-                //shut down
-                break;
-            case 6:
-                //Print Menu again
-                user.printMenu();
+        userInputInt = userInput.nextInt();
+        while(userInputInt != 6 && userInputInt != 5) {
+            switch (userInputInt) {
+                case 1:
+                    //view Account
+                    user.viewAccount(currentUser);
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
+                case 2:
+                    //Request change of salary
+                    user.requestChangeSalary();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
+                case 3:
+                    //Request change of role
+                    user.requestChangeRole();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
+                case 4:
+                    //Delete my Account
+                    user.deleteMyAccount();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
+                case 5:
+                    //Log out
+                    break;
+                case 6:
+                    //Shut down
+                    break;
+                case 7:
+                    //Print Menu again
+                    System.out.println(user.printMenu());
+                    System.out.println("Enter the number of what you want to do: ");
+                    userInputInt = userInput.nextInt();
+            }
         }
-        userInput.close();
+        if(userInputInt == 5){
+            System.out.println("You where logged out");
+            logout();
+        }
     }
 
     //getters, setters
