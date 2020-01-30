@@ -32,7 +32,6 @@ public class StartProgramTest {
 
     @Test
     public void printMenuAdmin() {
-
     }
 
     @Test

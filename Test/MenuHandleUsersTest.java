@@ -4,11 +4,11 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 
 import java.io.InputStream;
+import java.util.InputMismatchException;
 
 import static org.junit.Assert.*;
 
 public class MenuHandleUsersTest {
-
     private static StartProgram startProgram;
     private static MenuHandleUsers menuHandleUsers;
 
@@ -19,11 +19,10 @@ public class MenuHandleUsersTest {
         menuHandleUsers = new MenuHandleUsers();
     }
 
-
     @Test
     public void testPrintAllUsers() {
 
-        //  assertTrue("Failed to print all users", listUsersLogic.printAllUsers());
+
     }
 
     @Test
@@ -43,20 +42,22 @@ public class MenuHandleUsersTest {
     }
 
     @Test
-    public void testReturnChosenUser() {
-
-        //TODO:Find a better way to test this method!!!!
-
+    public void testReturnChosenUser_InCorrectValue() {
         try {
-            assertEquals("Failed to get user", "madde", menuHandleUsers.returnChosenUser(0));
+            assertEquals("Failed to get user", "pelle12", menuHandleUsers.returnChosenUser(0));
         } catch (NoSuchFieldException e) {
             System.out.println(e.getMessage());
         }
     }
-
     @Test
-    public void testChooseUser() {
-        //TODO: Find out how to test a switch menu in a loop
+    public void testReturnChosenUser_Correct() {
+        startProgram.getAdmin().createUser("frans1", "frans123", 0,40, "tester");
+        try {
+            assertEquals("Failed to get user", "frans1", menuHandleUsers.returnChosenUser(0).getUsername());
+        } catch (NoSuchFieldException e) {
+            System.out.println(e.getMessage());
+        }
+        startProgram.getAdmin().deleteUser("frans1");
     }
 
     @Test
@@ -64,12 +65,7 @@ public class MenuHandleUsersTest {
         String inputUser = "Pelle1";
         InputStream in = new ByteArrayInputStream(inputUser.getBytes());
         System.setIn(in);
-        assertEquals("Failed to get the input for the name change", menuHandleUsers.changeUserNameInput());
-    }
-
-    @Test
-    public void testChangeUserName() {
-        //TODO: how to test ??
+        assertEquals("Failed to get the input for the name change", inputUser, menuHandleUsers.changeUserNameInput());
     }
 
     @Test
@@ -132,8 +128,6 @@ public class MenuHandleUsersTest {
         assertEquals("", "yes", menuHandleUsers.deleteUserInput());
     }
 
-
-
     @Test
     public void testPrintMenuEditUser() {
       String test = "1 - View Account \n" +
@@ -148,6 +142,4 @@ public class MenuHandleUsersTest {
       System.out.println(menuHandleUsers.printMenuEditUser());
       assertEquals("Failed to print menu edit user", test, menuHandleUsers.printMenuEditUser());
     }
-
-
 }

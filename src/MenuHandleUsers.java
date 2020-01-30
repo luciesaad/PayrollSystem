@@ -58,7 +58,7 @@ public class MenuHandleUsers {
 
     /**This method either catches a NoSuchFieldException or it prints out the user admin wanted to change
      * and it also prints out the new menu with the options for changing/updating a users values.
-     * @exception NoSuchFieldException*/
+     * @exception NoSuchFieldException catches if there is no user match*/
     protected void chooseUser(){
         int userIndex = chooseUserInput();
         int menuChoice = 0;

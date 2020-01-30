@@ -61,11 +61,7 @@ public class StartProgram {
         loginAdmin();
 
     }
-
-    //I think we should create just one 'login' method, and update the username+pswMatches methods so that they either call
-    //the get username + get psw on admin or user based on the role or something. Plus in that login method, after login done = true;
-    //we should have a global private String set there to the current username that is logged in for future purposes(e.g. deleteMyAccount in User)
-
+    
     protected boolean usernameMatches(String matchUsername){
             try {
                 admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
