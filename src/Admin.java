@@ -49,7 +49,7 @@ public class Admin extends Account implements MenuInterFace {
     }
 
     public void viewAccount(){
-        menuLogic.viewAdminAccount();
+        System.out.println(menuLogic.viewAdminAccount());
     }
 
      public String printUserName(String user){

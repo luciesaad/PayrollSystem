@@ -125,9 +125,14 @@ public class MenuHandleUsersTest {
     }
 
     @Test
-    public void testDeleteUser(){
-        //TODO: check if user is deleted when method is run, if no is input then return to menu again.
+    public void testDeleteUserInput(){
+        String testRole = "yes";
+        InputStream in = new ByteArrayInputStream(testRole.getBytes());
+        System.setIn(in);
+        assertEquals("", "yes", menuHandleUsers.deleteUserInput());
     }
+
+
 
     @Test
     public void testPrintMenuEditUser() {
