@@ -13,7 +13,7 @@ public class AdminTest {
     private static Admin adminTest ;
     private  static User userTest;
     private static StartProgram startProgram;
->
+
 
 
     @BeforeClass
