@@ -9,9 +9,10 @@ public class Admin extends Account implements MenuInterFace {
         super("admin1", "admin1234", accountBalance, salary, employmentRole);
     }
 
-    public void createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
+    public User createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
         User newUser = new User(username, password, accountBalance, salary, employmentRole);
         getUsers().add(newUser);
+        return newUser; //updated this method - to return User instead of void for testing purposes
     }
 
     public void deleteUser(String username) {
@@ -24,9 +25,10 @@ public class Admin extends Account implements MenuInterFace {
         }
     }
 
-    public void checkUserRequests() {
+    //method returns String for test purposes
+    public String checkUserRequests() {
         int newSalary;
-        String newRole;
+        String newRole, message;
         Scanner input = new Scanner(System.in);
 
         //call getAllSalaryRequests() to get list of names of all who requested salary update - if not empty, continue
@@ -45,9 +47,13 @@ public class Admin extends Account implements MenuInterFace {
                         String check = input.nextLine();
                         if (check.equals("y") || check.equals("Y")) {
                             user.setSalary(newSalary);
-                            System.out.println(user.getUsername() + "'s salary has been updated!");
+                            message = user.getUsername() + "'s salary has been updated!";
+                            System.out.println(message);
+                            return message;
                         }else{
-                            System.out.println(user.getUsername() + "'s new salary not approved!");
+                            message = user.getUsername() + "'s new salary not approved!";
+                            System.out.println(message);
+                            return message;
                         }
                         //if user applied for role change
                     }else if(!user.getRequestedRole().equals("")){
@@ -57,9 +63,13 @@ public class Admin extends Account implements MenuInterFace {
                         String check = input.nextLine();
                         if (check.equals("y") || check.equals("Y")) {
                             user.setEmploymentRole(newRole);
-                            System.out.println(user.getUsername() + "'s role has been updated!");
+                            message = user.getUsername() + "'s role has been updated!";
+                            System.out.println(message);
+                            return message;
                         }else{
-                            System.out.println(user.getUsername() + "'s new role not approved!");
+                            message = user.getUsername() + "'s new role not approved!";
+                            System.out.println(message);
+                            return message;
                         }
                     }
 
@@ -70,11 +80,14 @@ public class Admin extends Account implements MenuInterFace {
             //remove all salary requests that have been approved or dismissed
             getAllRequests().clear();
         } else {
-            System.out.println("No requests found!");
+            message = "No requests found!";
+            System.out.println(message);
+            return message;
         }
+        return "";
     }
 
-//TODO: this method is a bit redundant (only good to check how many requests are there in total) - worthy?
+//method that creates an arraylist with names of all that requested something, to know how many request there are in total
     public ArrayList<String> getAllRequests(){
         int newSalary;
         String newRole;
@@ -86,7 +99,11 @@ public class Admin extends Account implements MenuInterFace {
             newSalary = user.getRequestedSalary();
             newRole = user.getRequestedRole();
 
-            if(newSalary != 0 || !newRole.equals("")){
+            //two if-conditions neccessary, otherwise adds the username to the list only once - undesirable!
+            if(newSalary != 0){
+                requestArrList.add(user.getUsername());
+            }
+            if(!newRole.equals("")){
                 requestArrList.add(user.getUsername());
             }
         }
