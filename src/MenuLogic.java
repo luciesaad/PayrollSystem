@@ -68,8 +68,9 @@ public class MenuLogic {
         menuHandleUsers.adminHandleUsers();
     }
     /**This method prints out admins account values*/
-    public String viewAdminAccount() {
-      return "Account user: " + startProgram.getAdmin().getUsername() + "\n"+
+    public String viewAdminAccount(String username) {
+        username = startProgram.getAdmin().getUsername();
+      return "Account user: " + username + "\n"+
              "Account balance: " + startProgram.getAdmin().getAccountBalance() + "\n"+
              "Employment role: " + startProgram.getAdmin().getEmploymentRole()  + "\n"+
              "Salary: " + startProgram.getAdmin().getSalary();

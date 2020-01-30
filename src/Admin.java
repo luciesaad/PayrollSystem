@@ -48,8 +48,8 @@ public class Admin extends Account implements MenuInterFace {
         return request;
     }
 
-    public void viewAccount(){
-        System.out.println(menuLogic.viewAdminAccount());
+    public void viewAccount(String user){
+        System.out.println(menuLogic.viewAdminAccount(user));
     }
 
      public String printUserName(String user){

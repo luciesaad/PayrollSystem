@@ -11,8 +11,7 @@ public class Main {
     }
 
     /**To do list for now!*/
-    //TODO: finish all tests in MenuListAndHandleUsersTest
-    //TODO: create a handler for salary request and role request in admin coming from user
+    //TODO: create a handler for salary request and role request in admin coming from user (LUCIE IS WORKING ON IT)
     //TODO: finsih all the test
     //TODO: Refactor and optimise code.
     //TODO: Java doc and comment

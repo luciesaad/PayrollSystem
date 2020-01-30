@@ -24,7 +24,7 @@ public class MenuLogicTest {
                 "Account balance: " + startProgram.getAdmin().getAccountBalance() + "\n"+
                 "Employment role: " + startProgram.getAdmin().getEmploymentRole()  + "\n"+
                 "Salary: " + startProgram.getAdmin().getSalary();
-        assertEquals("Failed to view admin account values", test, menuLogic.viewAdminAccount() );
+        assertEquals("Failed to view admin account values", test, menuLogic.viewAdminAccount("admin1") );
     }
 
     @Test

@@ -1,10 +1,6 @@
 public interface MenuInterFace {
-    //View Account , finns för admin, ej user
-    void viewAccount();
-    //Requests
-
-    //Log out
-
+    //View Account
+    void viewAccount(String user);
     //print menu
     void printMenu();
 }

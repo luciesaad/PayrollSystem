@@ -87,7 +87,7 @@ public class StartProgram {
         return false;
     }
     protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
-
+    
     protected String checkInputConditions(String input) {
         if (input.isEmpty()) {
             return "Try again: ";
@@ -129,6 +129,7 @@ public class StartProgram {
         return admin;
     }
 
+    /**Method with switch menu for admin.*/
     public void printMenuAdmin(){
         Scanner scannerInput = new Scanner(System.in);
         int menu = 0;
@@ -140,7 +141,7 @@ public class StartProgram {
             switch (menu) {
                 case 1:
                     //view Account
-                    admin.viewAccount();
+                    admin.viewAccount(getAdmin().getUsername());
                     System.out.print("To go back to the menu press 8: ");
                     menu = scannerInput.nextInt();
                         break;
@@ -163,7 +164,6 @@ public class StartProgram {
                     //TODO: see if you got a request and what the user want to change
                 case 5:
                     //Pay Salary
-                    //TODO:be able to payout salary for the users
                     menuLogic.paySalary();
                     System.out.println("To go back to menu press 8: ");
                     menu = scannerInput.nextInt();
@@ -187,7 +187,7 @@ public class StartProgram {
        }
     }
 
-
+    /**Method with switch menu for users.*/
     public void printMenuUser(){
         int userInputInt = 0;
         System.out.println("Menu: ");
@@ -203,10 +203,19 @@ public class StartProgram {
                     userInputInt = userInput.nextInt();
                 case 2:
                     //Request change of salary
+                    user.requestChangeSalary();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
                 case 3:
                     //Request change of role
+                    user.requestChangeRole();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
                 case 4:
                     //Delete my Account
+                    user.deleteMyAccount();
+                    System.out.println("To go back to menu press 7: ");
+                    userInputInt = userInput.nextInt();
                 case 5:
                     //Log out
                     break;

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class User extends Account {
+public class User extends Account implements MenuInterFace {
     private Scanner scan = new Scanner(System.in);
     private int requestedSalary;
     private String requestedRole;
