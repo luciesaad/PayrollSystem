@@ -15,6 +15,7 @@ public class StartProgram {
 
     protected void loginAdmin() {
         login();
+        userInput.close();
     }
 
     private void login() {
