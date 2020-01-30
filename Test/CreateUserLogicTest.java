@@ -16,8 +16,6 @@ public class CreateUserLogicTest {
         createUserLogic = new CreateUserLogic();
     }
 
-    
-
     @Test
     public void testSetUsernameInput(){
         String inputUser = "madde";

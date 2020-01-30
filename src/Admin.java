@@ -32,7 +32,7 @@ public class Admin extends Account implements MenuInterFace {
         Scanner input = new Scanner(System.in);
 
         //call getAllSalaryRequests() to get list of names of all who requested salary update - if not empty, continue
-        if (getAllRequests().size() > 0) {
+        if (!getAllRequests().isEmpty()) {
             System.out.println("There are " + getAllRequests().size() + " requests pending: ");
 
             //go through all requests and either approve or do not approve them
@@ -42,11 +42,13 @@ public class Admin extends Account implements MenuInterFace {
                     //if user applied for salary change
                     if (user.getRequestedSalary()>0){
                         newSalary = user.getRequestedSalary();
+                        System.out.println(newSalary);
                         System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
                         System.out.println("Approve new salary? (y/n): ");
                         String check = input.nextLine();
                         if (check.equals("y") || check.equals("Y")) {
                             user.setSalary(newSalary);
+                            System.out.println(newSalary);
                             message = user.getUsername() + "'s salary has been updated!";
                             System.out.println(message);
                             return message;
@@ -94,17 +96,17 @@ public class Admin extends Account implements MenuInterFace {
         ArrayList<String> requestArrList = new ArrayList<>();
 
         //loop that gets all users that requested salary
-        for(int i = 0; i < getUsers().size(); i++){
-            User user = getUsers().get(i);
-            newSalary = user.getRequestedSalary();
-            newRole = user.getRequestedRole();
+        for(int i = 0; i < getArrayUsers().size(); i++){
+
+            newSalary =getArrayUsers().get(i).getRequestedSalary();
+            newRole = getArrayUsers().get(i).getRequestedRole();
 
             //two if-conditions neccessary, otherwise adds the username to the list only once - undesirable!
             if(newSalary != 0){
-                requestArrList.add(user.getUsername());
+                requestArrList.add(getArrayUsers().get(i).getUsername());
             }
             if(!newRole.equals("")){
-                requestArrList.add(user.getUsername());
+                requestArrList.add(getArrayUsers().get(i).getUsername());
             }
         }
         return requestArrList;

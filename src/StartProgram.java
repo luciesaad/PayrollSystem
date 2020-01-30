@@ -4,7 +4,6 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
-    private User user = new User("testUser1","testUser12",0,30000,"Programmer"); //I guess we won't have this in the future?
     public static String currentUser = "";
 
     public void runProgram() {
@@ -195,31 +194,55 @@ public class StartProgram {
     public void printMenuUser(){
         int userInputInt = 0;
         System.out.println("Menu: ");
-       System.out.println(user.printMenu());
+        try {
+            System.out.println(getAdmin().getUser(currentUser).printMenu());
+        }catch (NoSuchFieldException e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("Enter the number of what you want to do: ");
         userInputInt = userInput.nextInt();
         while(userInputInt != 6 && userInputInt != 5) {
             switch (userInputInt) {
                 case 1:
                     //view Account
-                    user.viewAccount(currentUser);
+                    try {
+                       getAdmin().getUser(currentUser).viewAccount(currentUser);
+                    }catch (NoSuchFieldException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("To go back to menu press 7: ");
                     userInputInt = userInput.nextInt();
+                    break;
                 case 2:
                     //Request change of salary
-                    user.requestChangeSalary();
+                    try {
+                        getAdmin().getUser(currentUser).requestChangeSalary();
+                    }catch (NoSuchFieldException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("To go back to menu press 7: ");
                     userInputInt = userInput.nextInt();
+                    break;
                 case 3:
                     //Request change of role
-                    user.requestChangeRole();
+                    try {
+                        getAdmin().getUser(currentUser).requestChangeRole();
+                    }catch (NoSuchFieldException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("To go back to menu press 7: ");
                     userInputInt = userInput.nextInt();
+                    break;
                 case 4:
                     //Delete my Account
-                    user.deleteMyAccount();
+                    try {
+                        getAdmin().getUser(currentUser).deleteMyAccount();;
+                    }catch (NoSuchFieldException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("To go back to menu press 7: ");
                     userInputInt = userInput.nextInt();
+                    break;
                 case 5:
                     //Log out
                     break;
@@ -228,9 +251,14 @@ public class StartProgram {
                     break;
                 case 7:
                     //Print Menu again
-                    System.out.println(user.printMenu());
+                    try {
+                        System.out.println(getAdmin().getUser(currentUser).printMenu());
+                    }catch (NoSuchFieldException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("Enter the number of what you want to do: ");
                     userInputInt = userInput.nextInt();
+                    break;
             }
         }
         if(userInputInt == 5){
@@ -243,4 +271,5 @@ public class StartProgram {
     public String getCurrentUser() {
         return currentUser;
     }
+
 }

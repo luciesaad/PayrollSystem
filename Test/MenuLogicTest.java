@@ -27,7 +27,6 @@ public class MenuLogicTest {
         assertEquals("Failed to view admin account values", test, menuLogic.viewAdminAccount("admin1") );
     }
 
-
     @Test
     public void testPaySalaryReturn(){
         assertEquals("Failed to pay out salary","Admin was the only one that got salary payed out" + "There are no users to pay out salary to", menuLogic.paySalaryReturn());
