@@ -11,14 +11,13 @@ import static org.junit.Assert.*;
 public class AdminTest {
 
     private static Admin adminTest ;
-    private static User userTest, userTest2;
+    private static User userTest;
 
 
     @BeforeClass
     public static void suiteSetup() {
         adminTest = new Admin(0, 20000, "Administrator");
         userTest = new User("pelle","pelle123", 0, 25000,"Programmer");
-       // userTest2 = new User("ulf", "ulf1234", 0, 25000, "Engineer");
     }
 
     @Test
@@ -47,9 +46,9 @@ public class AdminTest {
     }
 
     @Test
-    public void createUser(){ //TODO: this works because of @Before, otherwise failes
+    public void createUser(){
         adminTest.createUser("pelle", "pelle123", 0, 23000,"programmer");
-        assertEquals("Failed to create user", "pelle", userTest.getUsername());
+        assertEquals("Failed to create user", 1, adminTest.getArrayUsers().size());
     }
 
     @Test
