@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class User extends Account implements MenuInterFace {
+public class User extends Account {
     private Scanner scan = new Scanner(System.in);
     private int requestedSalary;
     private String requestedRole;
@@ -22,11 +22,15 @@ public class User extends Account implements MenuInterFace {
                 "7 - Back to Menu ");
     }
 
-    public void viewAccount(){
-        System.out.println("Account user: " + getUsername());
-        System.out.println("Account balance: " + getAccountBalance());
-        System.out.println("Employment role: " + getEmploymentRole());
-        System.out.println("Salary: " + getSalary());
+    public void viewAccount(String currentUser){
+        for(int i  = 0; i < getUsers().size(); i++){
+            if(currentUser.equals(getUsers().get(i).getUsername())){
+                System.out.println("Account user: " + getUsers().get(i).getUsername());
+                System.out.println("Account balance: " + getUsers().get(i).getAccountBalance());
+                System.out.println("Employment role: " + getUsers().get(i).getEmploymentRole());
+                System.out.println("Salary: " + getUsers().get(i).getSalary());
+            }
+        }
     }
 
     public void requestChangeSalary(){

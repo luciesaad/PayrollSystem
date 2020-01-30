@@ -84,7 +84,7 @@ public class MenuHandleUsers {
             switch (menu) {
                 case 1:
                     //view account user
-                    user.viewAccount();
+                    user.viewAccount(startProgram.getCurrentUser());
                     System.out.println("To see menu again press 9:");
                     menu = scannerInput.nextInt();
                     break;
