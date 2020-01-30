@@ -13,13 +13,13 @@ public class AdminTest {
     private static Admin adminTest ;
     private  static User userTest;
     private static StartProgram startProgram;
->
+
 
 
     @BeforeClass
     public static void suiteSetup() {
         adminTest = new Admin(0, 20000, "Administrator");
-        userTest = new User("pelle","pelle123", 0, 25000,"Programmer");
+        //userTest = new User("pelle","pelle123", 0, 25000,"Programmer");
         startProgram = new StartProgram();
     }
 
@@ -50,8 +50,9 @@ public class AdminTest {
 
     @Test
     public void createUser(){
-        adminTest.createUser("pelle", "pelle123", 0, 23000,"programmer");
+        User user = adminTest.createUser("pelle1", "pelle123", 0, 23000,"programmer");
         assertEquals("Failed to create user", 1, adminTest.getArrayUsers().size());
+        adminTest.deleteUser(user.getUsername());
     }
 
     @Test
@@ -98,6 +99,7 @@ public class AdminTest {
         System.setIn(in);
 
         assertEquals("Request for salary update failed to be recognised!", "ulf's salary has been updated!", adminTest.checkUserRequests());
+        adminTest.deleteUser(userTest3.getUsername());
     }
     @Test
     public void testDissmissUserSalary(){
@@ -111,6 +113,7 @@ public class AdminTest {
         System.setIn(in);
 
         assertEquals("Dismissal of salary update failed!", "kalle's new salary not approved!", adminTest.checkUserRequests());
+        adminTest.deleteUser(userTest4.getUsername());
     }
 
     @Test
@@ -125,6 +128,7 @@ public class AdminTest {
         System.setIn(in);
 
         assertEquals("Request for role update failed to be recognized!", "ulf's role has been updated!", adminTest.checkUserRequests());
+        adminTest.deleteUser(userTest3.getUsername());
     }
 
     @Test
@@ -139,6 +143,7 @@ public class AdminTest {
         System.setIn(in);
 
         assertEquals("Dismissal for role update failed!", "ulf's new role not approved!", adminTest.checkUserRequests());
+        adminTest.deleteUser(userTest3.getUsername());
     }
 
     @Test
@@ -152,6 +157,7 @@ public class AdminTest {
         userTest2.setRequestedSalary(35000);
         userTest2.setRequestedRole("Project Manager");
         assertEquals(2, adminTest.getAllRequests().size());
+        adminTest.deleteUser(userTest2.getUsername());
     }
 
 }
