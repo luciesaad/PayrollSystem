@@ -48,7 +48,8 @@ public class User extends Account implements MenuInterFace {
         System.out.println("Your request for a change of role has been sent to Administrator.");
     }
 
-    public void deleteMyAccount(){
+    public boolean deleteMyAccount(){
+        boolean deleted = false;
         //user's role cannot be an administrator
         if(!getEmploymentRole().equals("Administrator")){
             //ask for username
@@ -57,7 +58,7 @@ public class User extends Account implements MenuInterFace {
 
             try{
                 System.out.println("Please enter your password: ");
-                String enteredPsw = scan.nextLine();
+                String enteredPsw = scan.next();
 
                 //set user to current user
                 User user = getUser(StartProgram.currentUser);
@@ -73,20 +74,19 @@ public class User extends Account implements MenuInterFace {
                     //remove user from the list and log out
                     getUsers().remove(getIndex(enteredUsername));
                     System.out.println("User " + enteredUsername + " has been deleted. Logging out...");
+                    deleted = true;
+                    return deleted;
                     //TODO: write a logout function
                 }else{
                     //if password doesn't match, deletion fails and user can return back to menu.
-                    System.out.println("Deletion failed. Incorrect password. Press 7 to go back to menu:");
-                    int back = scan.nextInt();
-                    if(back==7){
-                        printMenu();
-                    }
+                    System.out.println("Deletion failed. Incorrect password.");
                 }
             }catch (NoSuchFieldException e) { //user has not been found. Show menu again.
                 System.out.println("User not found! Deletion failed.");
                 printMenu();
             }
         }
+        return deleted;
     }
 
     //getters and setters
