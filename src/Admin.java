@@ -2,13 +2,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Admin class is a subclass of Account class, and implements interface MenuInterface
+ */
 public class Admin extends Account implements MenuInterFace {
     private static MenuLogic menuLogic = new MenuLogic();
 
+    /**
+     * constructor for Admin, super as reference to Account (superclass)
+     * @param accountBalance int for accountBalance
+     * @param salary int for salary
+     * @param employmentRole String for role/position
+     */
     public Admin(int accountBalance, int salary, String employmentRole) {
         super("admin1", "admin1234", accountBalance, salary, employmentRole);
     }
 
+    /**
+     * method createUser() 
+     * @param username
+     * @param password
+     * @param accountBalance
+     * @param salary
+     * @param employmentRole
+     * @return
+     */
     public User createUser(String username, String password, int accountBalance, int salary, String employmentRole) {
         User newUser = new User(username, password, accountBalance, salary, employmentRole);
         getUsers().add(newUser);
@@ -42,7 +60,6 @@ public class Admin extends Account implements MenuInterFace {
                     //if user applied for salary change
                     if (user.getRequestedSalary()>0){
                         newSalary = user.getRequestedSalary();
-                        System.out.println(newSalary);
                         System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
                         System.out.println("Approve new salary? (y/n): ");
                         String check = input.nextLine();
@@ -51,14 +68,21 @@ public class Admin extends Account implements MenuInterFace {
                             System.out.println(newSalary);
                             message = user.getUsername() + "'s salary has been updated!";
                             System.out.println(message);
+                            //set users requested salary to 0 - as request has been handled
+                            user.setRequestedSalary(0);
                             return message;
                         }else{
                             message = user.getUsername() + "'s new salary not approved!";
                             System.out.println(message);
+                            //set users requested salary to 0 - as request has been handled
+                            user.setRequestedSalary(0);
                             return message;
                         }
-                        //if user applied for role change
-                    }else if(!user.getRequestedRole().equals("")){
+                    }
+
+                    //if user applied for role change
+                    //else if cannot be used - would not work in case a user requests both salary AND role update!
+                    if(!user.getRequestedRole().equals("")){
                         newRole = user.getRequestedRole();
                         System.out.println("User " + user.getUsername() + " has requested to update role to: " + newRole);
                         System.out.println("Approve new role? (y/n): ");
@@ -67,10 +91,14 @@ public class Admin extends Account implements MenuInterFace {
                             user.setEmploymentRole(newRole);
                             message = user.getUsername() + "'s role has been updated!";
                             System.out.println(message);
+                            //set user's request to empty - as request has been handled
+                            user.setRequestedRole("");
                             return message;
                         }else{
                             message = user.getUsername() + "'s new role not approved!";
                             System.out.println(message);
+                            //set user's request to empty - as request has been handled
+                            user.setRequestedRole("");
                             return message;
                         }
                     }
