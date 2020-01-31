@@ -84,7 +84,7 @@ public class MenuHandleUsers {
             switch (menu) {
                 case 1:
                     //view account user
-                    user.viewAccount(startProgram.getCurrentUser());
+                    user.viewAccount(user.getUsername());
                     System.out.println("To see menu again press 9:");
                     menu = scannerInput.nextInt();
                     break;
@@ -213,12 +213,14 @@ public class MenuHandleUsers {
         System.out.println("The password for user " + user.getUsername() + " was change to: " + newUserPassword);
     }
 
+    /**gets admin input and returns it*/
     protected String changeUserSalaryInput(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Enter new salary: ");
         return scannerInput.nextLine();
     }
 
+    /**check the input and throws exception if not ok*/
     private void checkUserSalaryInput(String newUserSalary) throws InputMismatchException{
         try{
             createUserLogic.checkUserSalary(newUserSalary);
@@ -227,6 +229,7 @@ public class MenuHandleUsers {
         }
     }
 
+    /**The method catches the exeption if thrown if not it sets the new salary*/
     protected void changeUserSalary(){
         boolean check = false;
         while(!check) {
@@ -243,12 +246,14 @@ public class MenuHandleUsers {
         System.out.println("The salary was changed for the user " +  user.getUsername() + " new salary is: " + user.getSalary());
     }
 
+    /**Takes the admin input and returns it*/
     protected String changeAccountBalanceInput(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Enter new account balance: ");
         return scannerInput.nextLine();
     }
 
+    /**The method checks the input and if not ok throws a exception*/
     private void checkAccountBalance(String newAccountBalance) throws InputMismatchException{
         try{
             createUserLogic.checkUserAccountBalance(newAccountBalance);
@@ -257,6 +262,8 @@ public class MenuHandleUsers {
         }
     }
 
+    /**The method runs the check and catches the exception if there is one, if not it sets the
+     * new account balance value*/
     protected void changeAccountBalance(){
         boolean check = false;
         while(!check){
@@ -273,6 +280,7 @@ public class MenuHandleUsers {
         System.out.println("The account balance for user " + user.getUsername() + " was change to: " + accountBalane);
     }
 
+    /**Takes admins input for role change and returns it*/
     protected String changeUserRoleInput(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Enter new employment role: ");
