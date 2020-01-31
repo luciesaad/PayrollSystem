@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class StartProgram {
@@ -59,7 +60,6 @@ public class StartProgram {
     public void logout(){
         currentUser = "";
         loginAdmin();
-
     }
     
     protected boolean usernameMatches(String matchUsername){
@@ -96,6 +96,17 @@ public class StartProgram {
         }
     }
 
+    public boolean checkIntSize(int intToCheck){
+        if(intToCheck >= 2147483647){
+            return true;
+        }else if(intToCheck <= -2147483647){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     protected boolean hasCorrectLength(String input){
         if(input.length() < 6 || input.length() > 10){
             return false;
@@ -125,47 +136,115 @@ public class StartProgram {
         return admin;
     }
 
+    protected String printMenuAdminInput_firstTime(){
+        Scanner scannerInput = new Scanner(System.in);
+        System.out.println("Menu: ");
+        System.out.println(admin.printMenu());
+        System.out.println("Enter the menu number of what you want to do: ");
+        return scannerInput.nextLine();
+    }
+
+    protected String printMenuAdminInput_goBackToMenu(){
+        Scanner scannerInput = new Scanner(System.in);
+        System.out.print("To go back to the menu press 8: ");
+        return scannerInput.nextLine();
+    }
+
+    protected String printMenuAdminInput_returnFromHandleUserMenu(){
+        Scanner scannerInput = new Scanner(System.in);
+        System.out.println("Main Menu");
+        admin.printMenu();
+        System.out.println("Enter the number of what you want to do: ");
+        return scannerInput.nextLine();
+    }
+
+    protected void checkMenuInput(String menuValue)throws InputMismatchException {
+        int menuInt = Integer.parseInt(menuValue);
+        if(menuValue.isEmpty()){
+            throw new InputMismatchException("Input cant be empty!");
+        }else if(hasLetterNumCombo(menuValue)){
+            throw new InputMismatchException("Input cant be letters and numbers");
+        }else if(checkIntSize(menuInt)){
+            throw new InputMismatchException("please only input one number");
+        }
+    }
+
+    protected int printMenuAdminInt_firstTime(){
+        String menuValue = printMenuAdminInput_firstTime();
+        int menuIntValue = Integer.parseInt(menuValue);
+        boolean tryValue = false;
+        while(!tryValue) {
+            try {
+               checkMenuInput(menuValue);
+                tryValue = true;
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return menuIntValue;
+    }
+
+    protected int printMenuAdminInt_goBackToMenu(){
+        String menuValue = printMenuAdminInput_goBackToMenu();
+        int menuIntValue = Integer.parseInt(menuValue);
+        boolean tryValue = false;
+        while (!tryValue){
+            try{
+                checkMenuInput(menuValue);
+                tryValue = true;
+            }catch(InputMismatchException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return menuIntValue;
+    }
+
+    protected int printMenuAdminInt_returnFromHandleUserMenu(){
+        String menuValue = printMenuAdminInput_returnFromHandleUserMenu();
+        int menuIntValue = Integer.parseInt(menuValue);
+        boolean tryValue = false;
+        while (!tryValue){
+            try {
+                checkMenuInput(menuValue);
+                tryValue = true;
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return menuIntValue;
+    }
+
     /**Method with switch menu for admin.*/
     public void printMenuAdmin(){
-        Scanner scannerInput = new Scanner(System.in);
         int menu = 0;
-        System.out.println("Menu: ");
-       System.out.println(admin.printMenu());
-        System.out.println("Enter the menu number of what you want to do: ");
-        menu = scannerInput.nextInt();
+        menu = printMenuAdminInt_firstTime();
+
         while(menu != 7 && menu != 6) {
             switch (menu) {
                 case 1:
                     //view Account
                     admin.viewAccount(getAdmin().getUsername());
-                    System.out.print("To go back to the menu press 8: ");
-                    menu = scannerInput.nextInt();
-                        break;
+                    menu = printMenuAdminInt_goBackToMenu();
+                    break;
                 case 2:
                     //Create User
                     menuLogic.createUser();
-                    System.out.println("To go back to the menu press 8: ");
-                    menu = scannerInput.nextInt();
+                    menu = printMenuAdminInt_goBackToMenu();
                     break;
                 case 3:
                     //See Users
                     menuLogic.listAllUsers();
-                    System.out.println("Main Menu");
-                    admin.printMenu();
-                    System.out.println("Enter the number of what you want to do: ");
-                    menu = scannerInput.nextInt();
+                    menu = printMenuAdminInt_returnFromHandleUserMenu();
                     break;
                 case 4:
                     //Requests
                     admin.checkUserRequests();
-                    System.out.println("To go back to menu press 8: ");
-                    menu = scannerInput.nextInt();
+                    menu = printMenuAdminInt_goBackToMenu();
                     break;
                 case 5:
                     //Pay Salary
                     menuLogic.paySalary();
-                    System.out.println("To go back to menu press 8: ");
-                    menu = scannerInput.nextInt();
+                    menu = printMenuAdminInt_goBackToMenu();
                 case 6:
                     //Log out
                     break;
@@ -174,9 +253,7 @@ public class StartProgram {
                     break;
                 case 8:
                     //print menu again
-                    System.out.println(admin.printMenu());
-                    System.out.println("Enter the number of what you want to do: ");
-                    menu = userInput.nextInt();
+                    menu = printMenuAdminInt_firstTime();
                     break;
             }
         }
