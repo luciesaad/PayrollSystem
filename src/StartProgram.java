@@ -178,7 +178,7 @@ public class StartProgram {
     protected String printMenuAdminInput_returnFromHandleUserMenu(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Main Menu");
-        admin.printMenu();
+        System.out.println(admin.printMenu());
         System.out.println("Enter the number of what you want to do: ");
         return scannerInput.nextLine();
     }

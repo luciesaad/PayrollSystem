@@ -316,11 +316,13 @@ public class MenuHandleUsers {
         System.out.println("The employment role of user " + user.getUsername() + " was changed to: " + newUserRole);
     }
 
+    /**Takes the answere if admin want to delete*/
     protected String deleteUserInput(){
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("Are you sure you want to delete user? ");
         return inputScanner.nextLine();
     }
+
 
     protected String checkExceptionDeleteUserInput() throws InputMismatchException{
         try {
@@ -332,6 +334,7 @@ public class MenuHandleUsers {
         }
     }
 
+    /**checks the input*/
     protected void checkDeleteUserInput(String testInput){
         if(testInput.isEmpty() || testInput.isBlank()){
             throw new InputMismatchException("It cant be empty please choose yes or no");
@@ -341,8 +344,7 @@ public class MenuHandleUsers {
 
     }
 
-    /**This method does so the admin can delete the user
-     * TODO: try catch on input?? Move to its own method?*/
+    /**This method does so the admin can delete the user*/
     protected void deleteUser(){
         String username = user.getUsername();
         try{
