@@ -10,9 +10,11 @@ import static org.junit.Assert.assertTrue;
 
 public class CreateUserLogicTest {
     private static CreateUserLogic createUserLogic;
+    private static StartProgram startProgram;
 
     @BeforeClass
     public static void suiteSetup(){
+        startProgram = new StartProgram();
         createUserLogic = new CreateUserLogic();
     }
 
@@ -135,7 +137,7 @@ public class CreateUserLogicTest {
     @Test
     public void testHasNumber(){
         String testInput = "11aa";
-        assertTrue("",createUserLogic.hasNumber(testInput));
+        assertTrue("",startProgram.hasLetterNumCombo(testInput));
     }
 
     @Test
