@@ -74,16 +74,16 @@ public class Admin extends Account implements MenuInterFace {
 
                     //if user applied for salary change
                     if (user.getRequestedSalary()>0){
-                        newSalary = user.getRequestedSalary();              //set int newSalary to user's requested salary
+                        newSalary = user.getRequestedSalary();                              //set int newSalary to user's requested salary
                         adminAnswer = printSalaryRequirementGetAnswer(user, newSalary);     //print form for approving salary request
-                        approveDismissSalary(user, newSalary, adminAnswer);     //call this method to get approval/dismissal
+                        approveDismissSalary(user, newSalary, adminAnswer);                 //call this method to get approval/dismissal
 
                     }
                     //if user applied for role change
                     if(!user.getRequestedRole().equals("")){
-                        newRole = user.getRequestedRole();
+                        newRole = user.getRequestedRole();                              //set String newRole to user's requested role
                         adminAnswer = printRoleRequirementGetAnswer(user, newRole);     //print form for approving role request, call approveDismissRole
-                        approveDismissRole(user, newRole, adminAnswer);
+                        approveDismissRole(user, newRole, adminAnswer);                 //call this method to get approval/dismissal
                     }
 
                 } catch (NoSuchFieldException e) {
@@ -95,12 +95,25 @@ public class Admin extends Account implements MenuInterFace {
         }
     }
 
+    /**
+     * method printSalaryRequirementGetAnswer() takes 2 params and prints the conversation to get admin's input (y/n)
+     * @param user User - the one whose requested is being examined
+     * @param newSalary int representing the new salary
+     * @return returns String used in method approveDismissSalary()
+     */
     public String printSalaryRequirementGetAnswer(User user, int newSalary){
         Scanner input = new Scanner(System.in);
         System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
         System.out.println("Approve new salary? (y/n): ");
         return input.nextLine();
     }
+
+    /**
+     * method printRoleRequirementGetAnswer() takes 2 params and prints the conversation to get admin's input (y/n)
+     * @param user User - the one whose requested is being examined
+     * @param newRole String representing the new role
+     * @return returns String used in method approveDismissRole()
+     */
     public String printRoleRequirementGetAnswer(User user, String newRole){
         Scanner input = new Scanner(System.in);
         System.out.println("User " + user.getUsername() + " has requested to update role to: " + newRole);
@@ -108,6 +121,14 @@ public class Admin extends Account implements MenuInterFace {
         return input.nextLine();
     }
 
+    /**
+     * method approveDismissSalary takes in 3 params, decides what needs to be done in case of approval / dismissal
+     * sets user's requested salary back to 0, after request has been handled
+     * @param user type User  - user whose requested is being examined
+     * @param newSalary int representing newSalary
+     * @param adminAnswer String representing admin's message
+     * @return String for testing purposes
+     */
     public String approveDismissSalary(User user, int newSalary, String adminAnswer){
         String message;
         if (adminAnswer.equals("y") || adminAnswer.equals("Y")) {   //if salary approved
@@ -121,6 +142,14 @@ public class Admin extends Account implements MenuInterFace {
         return message;
     }
 
+    /**
+     * method approveDismissRole takes in 3 params, decides what needs to be done in case of approval / dismissal
+     * sets user's requested role back to "", after request has been handled
+     * @param user type User  - user whose requested is being examined
+     * @param newRole String representing new role
+     * @param adminAnswer String representing admin's decision
+     * @return String for testing purposes
+     */
     public String approveDismissRole(User user, String newRole, String adminAnswer){
         String message;
         if (adminAnswer.equals("y") || adminAnswer.equals("Y")) {   //if role approved

@@ -115,7 +115,7 @@ public class AdminTest {
     @Test
     public void printRoleRequirementGetAnswerYes(){
         User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
-        userTest3.setRequestedSalary(30000);
+        userTest3.setRequestedRole("Magician");
         String newRole = userTest3.getRequestedRole();
 
         //get yes
@@ -129,7 +129,7 @@ public class AdminTest {
     @Test
     public void printRoleRequirementGetAnswerNo(){
         User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
-        userTest3.setRequestedSalary(30000);
+        userTest3.setRequestedRole("Janitor");
         String newRole = userTest3.getRequestedRole();
 
         //get no
@@ -138,6 +138,43 @@ public class AdminTest {
         System.setIn(in);
 
         assertEquals("Failed to dismiss new role request - wrong input","n", adminTest.printRoleRequirementGetAnswer(userTest3, newRole));
+        adminTest.deleteUser(userTest3.getUsername());
+    }
+
+    @Test
+    public void testApproveSalary(){
+        User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
+        userTest3.setRequestedSalary(30000);
+        int newSalary = userTest3.getRequestedSalary();
+
+        assertEquals("Failed approve salary request","ulf's salary has been updated!", adminTest.approveDismissSalary(userTest3,newSalary,"y"));
+        adminTest.deleteUser(userTest3.getUsername());
+    }
+    @Test
+    public void testDismissSalary(){
+        User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
+        userTest3.setRequestedSalary(30000);
+        int newSalary = userTest3.getRequestedSalary();
+
+        assertEquals("Failed approve salary request","ulf's new salary not approved!", adminTest.approveDismissSalary(userTest3,newSalary,"n"));
+        adminTest.deleteUser(userTest3.getUsername());
+    }
+    @Test
+    public void testApproveRole(){
+        User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
+        userTest3.setRequestedRole("Janitor");
+        String newRole = userTest3.getRequestedRole();
+
+        assertEquals("Failed to approve role request","ulf's role has been updated!", adminTest.approveDismissRole(userTest3,newRole,"y"));
+        adminTest.deleteUser(userTest3.getUsername());
+    }
+    @Test
+    public void testDismissRole(){
+        User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
+        userTest3.setRequestedRole("Magician");
+        String newRole = userTest3.getRequestedRole();
+
+        assertEquals("Failed to dismiss role request","ulf's new role not approved!", adminTest.approveDismissRole(userTest3,newRole,"n"));
         adminTest.deleteUser(userTest3.getUsername());
     }
 
