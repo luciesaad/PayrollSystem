@@ -79,12 +79,14 @@ public class StartProgramTest {
 
     @Test
     public void printMenuAdmin() {
+
     }
 
     @Test
-    public void printMenuUser() {
+    public void testCheckIntSize_CorrectInput(){
+        assertFalse("failed to check int size", startProgram.checkIntSize(12));
     }
-
+ 
     @Test
     public void usernameMatches() {
         startProgram.getAdmin().createUser("kalle1", "kalle1234", 0, 50,"tester");

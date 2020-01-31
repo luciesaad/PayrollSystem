@@ -136,6 +136,8 @@ public class StartProgram {
         return admin;
     }
 
+    /**This method get the input the first time
+     * @return the value of the menu choice*/
     protected String printMenuAdminInput_firstTime(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Menu: ");
@@ -144,12 +146,18 @@ public class StartProgram {
         return scannerInput.nextLine();
     }
 
+    /**this method get the input value every time the admin have choosen a option and wants
+     * to go back to the menu again or do another menu option
+     * @return returns the admin input*/
     protected String printMenuAdminInput_goBackToMenu(){
         Scanner scannerInput = new Scanner(System.in);
-        System.out.print("To go back to the menu press 8: ");
+        System.out.println("To go back to the menu press 8: ");
         return scannerInput.nextLine();
     }
 
+    /**This method takes admin input when admin have been in the menu that
+     * handles changes for Users
+     * @return  returns admin input*/
     protected String printMenuAdminInput_returnFromHandleUserMenu(){
         Scanner scannerInput = new Scanner(System.in);
         System.out.println("Main Menu");
@@ -158,67 +166,85 @@ public class StartProgram {
         return scannerInput.nextLine();
     }
 
-    protected void checkMenuInput(String menuValue)throws InputMismatchException {
-        int menuInt = Integer.parseInt(menuValue);
-        if(menuValue.isEmpty()){
+    /**This method checks the value admin inputed and if not ok it returns a exception*/
+    protected void checkMenuInput(String menuValue)throws InputMismatchException, NumberFormatException {
+        if(menuValue.isEmpty() && menuValue.isBlank()){
             throw new InputMismatchException("Input cant be empty!");
         }else if(hasLetterNumCombo(menuValue)){
             throw new InputMismatchException("Input cant be letters and numbers");
-        }else if(checkIntSize(menuInt)){
+        }else if(checkIntSize(Integer.parseInt(menuValue))){
             throw new InputMismatchException("please only input one number");
+        }else if(menuValue.equals("") || menuValue == null){
+            throw new NumberFormatException("Input cant be empty");
         }
     }
 
+    /**This method returns the value of admin input the first time the menu runs
+     * @return int value*/
     protected int printMenuAdminInt_firstTime(){
         String menuValue = printMenuAdminInput_firstTime();
-        int menuIntValue = Integer.parseInt(menuValue);
-        boolean tryValue = false;
-        while(!tryValue) {
-            try {
-               checkMenuInput(menuValue);
-                tryValue = true;
-            } catch (InputMismatchException e) {
-                System.out.println(e.getMessage());
+        boolean check = checkInt(menuValue);
+        while (!check){
+            menuValue = printMenuAdminInput_firstTime();
+            check = checkInt(menuValue);
+            if(check) {
+                return Integer.parseInt(menuValue);
             }
         }
-        return menuIntValue;
+        return Integer.parseInt(menuValue);
     }
 
+    /**This method returns the value of admin input after admin have done a choice from
+     * the menu
+     * @return int value*/
     protected int printMenuAdminInt_goBackToMenu(){
         String menuValue = printMenuAdminInput_goBackToMenu();
-        int menuIntValue = Integer.parseInt(menuValue);
-        boolean tryValue = false;
-        while (!tryValue){
-            try{
-                checkMenuInput(menuValue);
-                tryValue = true;
-            }catch(InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
+        boolean check = checkInt(menuValue);
+        while (!check){
+            menuValue = printMenuAdminInput_goBackToMenu();
+            check = checkInt(menuValue);
+           if(check) {
+               return Integer.parseInt(menuValue);
+           }
         }
-        return menuIntValue;
+        return Integer.parseInt(menuValue);
     }
 
+    /**This method returns the value of admin input when admin returns from have done
+     * menu choice 3 and been in the under menu.
+     * @return int value*/
     protected int printMenuAdminInt_returnFromHandleUserMenu(){
         String menuValue = printMenuAdminInput_returnFromHandleUserMenu();
-        int menuIntValue = Integer.parseInt(menuValue);
-        boolean tryValue = false;
-        while (!tryValue){
-            try {
-                checkMenuInput(menuValue);
-                tryValue = true;
-            }catch (InputMismatchException e){
-                System.out.println(e.getMessage());
+        boolean check = checkInt(menuValue);
+        while (!check){
+            menuValue = printMenuAdminInput_returnFromHandleUserMenu();
+            check = checkInt(menuValue);
+            if(check) {
+                return Integer.parseInt(menuValue);
             }
         }
-        return menuIntValue;
+        return Integer.parseInt(menuValue);
+    }
+
+    /**This method checks the input and either returns a message with a exception or it
+     * returns the int
+     * @return menuIntValue the admin input value
+     * @exception InputMismatchException returns if input not ok
+     * @exception NumberFormatException returns if input not ok*/
+    private boolean checkInt(String menuValue) {
+            try{
+                checkMenuInput(menuValue);
+                return true;
+            }catch(InputMismatchException | NumberFormatException e){
+                System.out.println(e.getMessage());
+            }
+        return false;
     }
 
     /**Method with switch menu for admin.*/
     public void printMenuAdmin(){
         int menu = 0;
         menu = printMenuAdminInt_firstTime();
-
         while(menu != 7 && menu != 6) {
             switch (menu) {
                 case 1:
