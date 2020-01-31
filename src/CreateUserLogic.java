@@ -173,7 +173,6 @@ public class CreateUserLogic {
         return checkInput.isEmpty() || checkInput.isBlank();
     }
 
-
     /**getters*/
     protected String getUserName() {return userName;}
     protected String getUserPsw() {return userPsw;}
