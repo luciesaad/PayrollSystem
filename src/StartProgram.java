@@ -7,17 +7,21 @@ public class StartProgram {
     private Scanner userInput = new Scanner(System.in);
     public static String currentUser = "";
 
+    /**This method starts the program, it calls the login method.*/
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
         loginAdmin();
         userInput.close();
     }
 
+    /**Calls the login method*/
     protected void loginAdmin() {
         login();
         userInput.close();
     }
 
+    /**This method handles login, takes user input and checks calls methods that
+     * checks if username and password is a match to any user or admin.*/
     private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
@@ -57,11 +61,15 @@ public class StartProgram {
         }
     }
 
+    /**This method resets currentUser and calls login admin again so that you
+     * can login again as another user or as admin again*/
     public void logout(){
         currentUser = "";
         loginAdmin();
     }
-    
+
+    /**This method checks if username matches and catches exception if don´t
+     * @exception NoSuchFieldException if user isn´t a match*/
     protected boolean usernameMatches(String matchUsername){
             try {
                 admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
@@ -71,9 +79,10 @@ public class StartProgram {
                 return false;
             }
     }
-    protected boolean adminPswMatches(String matchPsw){
-        return matchPsw.equals(admin.getPsw());
-    }
+    /**This method checks if admin password matches*/
+    protected boolean adminPswMatches(String matchPsw){return matchPsw.equals(admin.getPsw());}
+
+    /**This method checks if users username matches*/
     protected boolean userPswMatches(String matchUsername, String matchPsw){
         try {
             return matchPsw.equals(admin.getUser(matchUsername).getPsw());
@@ -82,8 +91,12 @@ public class StartProgram {
         }
         return false;
     }
+
+    /**This method checks if admin username matches*/
     protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
 
+    /**This method checks String input for username
+     * @return String with instructions*/
     protected String checkInputConditions(String input) {
         if (input.isEmpty()) {
             return "Try again: ";
@@ -96,10 +109,11 @@ public class StartProgram {
         }
     }
 
+    /**This method checks int input*/
     public boolean checkIntSize(int intToCheck){
-        if(intToCheck >= 2147483647){
+        if(intToCheck >= 2147483646){
             return true;
-        }else if(intToCheck <= -2147483647){
+        }else if(intToCheck <= -2147483646){
             return true;
         }
         else{
@@ -107,6 +121,7 @@ public class StartProgram {
         }
     }
 
+    /**This method checks so that a username and password have the correct length*/
     protected boolean hasCorrectLength(String input){
         if(input.length() < 6 || input.length() > 10){
             return false;
@@ -114,6 +129,7 @@ public class StartProgram {
         return true;
     }
 
+    /**This method checks so that a username and password contains both char and number*/
     protected boolean hasLetterNumCombo(String input){
         StringBuilder sb = new StringBuilder();
         boolean numFound = false;
@@ -132,6 +148,7 @@ public class StartProgram {
         return (numFound && letterFound);
     }
 
+    /**Get admin*/
     public Admin getAdmin() {
         return admin;
     }
@@ -369,7 +386,7 @@ public class StartProgram {
         }
     }
 
-    //getters, setters
+    /**getters, setters*/
     public String getCurrentUser() {
         return currentUser;
     }

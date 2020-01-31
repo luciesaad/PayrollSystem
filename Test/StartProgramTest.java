@@ -16,15 +16,6 @@ public class StartProgramTest {
     }
 
     @Test
-    public void runProgram() {
-    }
-
-    @Test
-    public void loginAdmin(){
-
-    }
-
-    @Test
     public void getAdmin() {
         assertEquals("Failed to get Admin", "admin1", startProgram.getAdmin().getUsername());
     }
@@ -79,14 +70,23 @@ public class StartProgramTest {
 
     @Test
     public void printMenuAdmin() {
+        String inputUser = "1";
+        InputStream in = new ByteArrayInputStream(inputUser.getBytes());
+        System.setIn(in);
 
+        //TODO:Check if it does case 1
     }
 
     @Test
-    public void testCheckIntSize_CorrectInput(){
-        assertFalse("failed to check int size", startProgram.checkIntSize(12));
+    public void testCheckIntSize_returnTrue(){
+        assertTrue("failed to check int size", startProgram.checkIntSize(2147483647));
     }
- 
+
+    @Test
+    public void testCheckIntSize_returnFalse(){
+        assertFalse("Failed to check int size", startProgram.checkIntSize(12));
+    }
+
     @Test
     public void usernameMatches() {
         startProgram.getAdmin().createUser("kalle1", "kalle1234", 0, 50,"tester");
