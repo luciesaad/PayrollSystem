@@ -33,7 +33,7 @@ public class StartProgram {
 
             //if there is no username match
             if(!username.equals(admin.getUsername()) && !usernameMatches(username)){
-                checkInputConditions(username);
+               System.out.println(checkInputConditions(username));
             }
             //if admin logs in
             else if(username.equals(admin.getUsername())){
@@ -72,10 +72,10 @@ public class StartProgram {
      * @exception NoSuchFieldException if user isn´t a match*/
     protected boolean usernameMatches(String matchUsername){
             try {
-                admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
+               admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
                 return true;
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+               e.getLocalizedMessage();
                 return false;
             }
     }
