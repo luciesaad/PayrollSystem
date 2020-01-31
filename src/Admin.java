@@ -6,6 +6,7 @@ import java.util.Scanner;
  */
 public class Admin extends Account implements MenuInterFace {
     private static MenuLogic menuLogic = new MenuLogic();
+    private Scanner input = new Scanner(System.in);
 
     /**
      * constructor for Admin, super as reference to Account (superclass)
@@ -53,79 +54,85 @@ public class Admin extends Account implements MenuInterFace {
      * method checkUserRequests() enables the Admin to see all user requests (both salary and role)
      * calls getAllRequests() method
      * catches NoSuchField exception in case user not found
-     * @return String for test purposes
      */
-    public String checkUserRequests() {
-        int newSalary;
-        String newRole, message;
-        Scanner input = new Scanner(System.in);
+    public void checkUserRequests() {
+        //if there are no requests, print this
+        if (getAllRequests().isEmpty()){
+            System.out.println("No requests found!");
+        }
 
-        //call getAllSalaryRequests() to get list of names of all who requested salary update - if not empty, continue
-        if (!getAllRequests().isEmpty()) {
+        //while list of request is not empty, continue
+        while (!getAllRequests().isEmpty()) {
             System.out.println("There are " + getAllRequests().size() + " requests pending: ");
 
             //go through all requests and either approve or do not approve them
             for (int i = 0; i < getAllRequests().size(); i++) {
                 try {
                     User user = getUser(getAllRequests().get(i));
+
                     //if user applied for salary change
                     if (user.getRequestedSalary()>0){
-                        newSalary = user.getRequestedSalary();
-                        System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
-                        System.out.println("Approve new salary? (y/n): ");
-                        String check = input.nextLine();
-                        if (check.equals("y") || check.equals("Y")) {
-                            user.setSalary(newSalary);
-                            System.out.println(newSalary);
-                            message = user.getUsername() + "'s salary has been updated!";
-                            System.out.println(message);
-                            //set users requested salary to 0 - as request has been handled
-                            user.setRequestedSalary(0);
-                            return message;
-                        }else{
-                            message = user.getUsername() + "'s new salary not approved!";
-                            System.out.println(message);
-                            //set users requested salary to 0 - as request has been handled
-                            user.setRequestedSalary(0);
-                            return message;
-                        }
+                        printSalaryRequirementGetAnswer(user);     //print form for approving salary request, call approveDismissSalary
                     }
-
                     //if user applied for role change
-                    //else if cannot be used - would not work in case a user requests both salary AND role update!
                     if(!user.getRequestedRole().equals("")){
-                        newRole = user.getRequestedRole();
-                        System.out.println("User " + user.getUsername() + " has requested to update role to: " + newRole);
-                        System.out.println("Approve new role? (y/n): ");
-                        String check = input.nextLine();
-                        if (check.equals("y") || check.equals("Y")) {
-                            user.setEmploymentRole(newRole);
-                            message = user.getUsername() + "'s role has been updated!";
-                            System.out.println(message);
-                            //set user's request to empty - as request has been handled
-                            user.setRequestedRole("");
-                            return message;
-                        }else{
-                            message = user.getUsername() + "'s new role not approved!";
-                            System.out.println(message);
-                            //set user's request to empty - as request has been handled
-                            user.setRequestedRole("");
-                            return message;
-                        }
+                        printRoleRequirementGetAnswer(user);     //print form for approving role request, call approveDismissRole
                     }
 
                 } catch (NoSuchFieldException e) {
                     System.out.println("User not found! Errormessage: " + e.getMessage());
                 }
             }
-            //remove all salary requests that have been approved or dismissed
-            getAllRequests().clear();
-        } else {
-            message = "No requests found!";
-            System.out.println(message);
-            return message;
+            getAllRequests().clear();  //remove all requests as they all have been handled
+            System.out.println("No requests left! Good job!");
         }
-        return "";
+    }
+
+    public String printSalaryRequirementGetAnswer(User user){
+        int newSalary = user.getRequestedSalary();              //set int newSalary to user's requested salary
+        String adminAnswer;
+        System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
+        System.out.println("Approve new salary? (y/n): ");
+        adminAnswer = input.nextLine();
+
+        approveDismissSalary(user, newSalary, adminAnswer);     //call this method to get approval/dismissal
+        return adminAnswer;
+    }
+    public String printRoleRequirementGetAnswer(User user){
+        String newRole = user.getRequestedRole();               //set String newRole to user's requested role
+        String adminAnswer;
+        System.out.println("User " + user.getUsername() + " has requested to update role to: " + newRole);
+        System.out.println("Approve new role? (y/n): ");
+        adminAnswer = input.nextLine();
+
+        approveDismissRole(user, newRole, adminAnswer);         //call this method to get approval/dismissal
+        return adminAnswer;
+    }
+
+    public String approveDismissSalary(User user, int newSalary, String adminAnswer){
+        String message;
+        if (adminAnswer.equals("y") || adminAnswer.equals("Y")) {   //if salary approved
+            user.setSalary(newSalary);
+            message = user.getUsername() + "'s salary has been updated!";
+        }else{
+            message = user.getUsername() + "'s new salary not approved!";
+        }
+        System.out.println(message);
+        user.setRequestedSalary(0);     //set users requested salary to 0 - as request has been handled
+        return message;
+    }
+
+    public String approveDismissRole(User user, String newRole, String adminAnswer){
+        String message;
+        if (adminAnswer.equals("y") || adminAnswer.equals("Y")) {   //if role approved
+            user.setEmploymentRole(newRole);
+            message = user.getUsername() + "'s role has been updated!";
+        }else{
+            message = user.getUsername() + "'s new role not approved!";
+        }
+        System.out.println(message);
+        user.setRequestedRole("");  //set user's request to empty - as request has been handled
+        return message;
     }
 
     /**

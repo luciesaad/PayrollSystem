@@ -87,7 +87,7 @@ public class AdminTest {
         assertEquals("failed to return print Menu", testInput, adminTest.printMenu());
     }
 
-    @Test
+ /*   @Test
     public void testApproveUserSalary(){
         User userTest3 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
 
@@ -150,7 +150,7 @@ public class AdminTest {
     public void testNoRequestsFound(){
         assertEquals("Requests found when they shouldn't!", "No requests found!", adminTest.checkUserRequests());
     }
-
+*/
     @Test
     public void getAllRequests(){
         User userTest2 = adminTest.createUser("ulf", "ulf1234", 0, 25000, "Engineer");
