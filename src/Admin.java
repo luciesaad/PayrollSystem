@@ -6,7 +6,6 @@ import java.util.Scanner;
  */
 public class Admin extends Account implements MenuInterFace {
     private static MenuLogic menuLogic = new MenuLogic();
-    private Scanner input = new Scanner(System.in);
 
     /**
      * constructor for Admin, super as reference to Account (superclass)
@@ -56,6 +55,9 @@ public class Admin extends Account implements MenuInterFace {
      * catches NoSuchField exception in case user not found
      */
     public void checkUserRequests() {
+        int newSalary;
+        String adminAnswer, newRole;
+
         //if there are no requests, print this
         if (getAllRequests().isEmpty()){
             System.out.println("No requests found!");
@@ -72,11 +74,16 @@ public class Admin extends Account implements MenuInterFace {
 
                     //if user applied for salary change
                     if (user.getRequestedSalary()>0){
-                        printSalaryRequirementGetAnswer(user);     //print form for approving salary request, call approveDismissSalary
+                        newSalary = user.getRequestedSalary();              //set int newSalary to user's requested salary
+                        adminAnswer = printSalaryRequirementGetAnswer(user, newSalary);     //print form for approving salary request
+                        approveDismissSalary(user, newSalary, adminAnswer);     //call this method to get approval/dismissal
+
                     }
                     //if user applied for role change
                     if(!user.getRequestedRole().equals("")){
-                        printRoleRequirementGetAnswer(user);     //print form for approving role request, call approveDismissRole
+                        newRole = user.getRequestedRole();
+                        adminAnswer = printRoleRequirementGetAnswer(user, newRole);     //print form for approving role request, call approveDismissRole
+                        approveDismissRole(user, newRole, adminAnswer);
                     }
 
                 } catch (NoSuchFieldException e) {
@@ -88,25 +95,17 @@ public class Admin extends Account implements MenuInterFace {
         }
     }
 
-    public String printSalaryRequirementGetAnswer(User user){
-        int newSalary = user.getRequestedSalary();              //set int newSalary to user's requested salary
-        String adminAnswer;
+    public String printSalaryRequirementGetAnswer(User user, int newSalary){
+        Scanner input = new Scanner(System.in);
         System.out.println("User " + user.getUsername() + " has requested to update salary to: " + newSalary);
         System.out.println("Approve new salary? (y/n): ");
-        adminAnswer = input.nextLine();
-
-        approveDismissSalary(user, newSalary, adminAnswer);     //call this method to get approval/dismissal
-        return adminAnswer;
+        return input.nextLine();
     }
-    public String printRoleRequirementGetAnswer(User user){
-        String newRole = user.getRequestedRole();               //set String newRole to user's requested role
-        String adminAnswer;
+    public String printRoleRequirementGetAnswer(User user, String newRole){
+        Scanner input = new Scanner(System.in);
         System.out.println("User " + user.getUsername() + " has requested to update role to: " + newRole);
         System.out.println("Approve new role? (y/n): ");
-        adminAnswer = input.nextLine();
-
-        approveDismissRole(user, newRole, adminAnswer);         //call this method to get approval/dismissal
-        return adminAnswer;
+        return input.nextLine();
     }
 
     public String approveDismissSalary(User user, int newSalary, String adminAnswer){
