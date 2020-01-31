@@ -323,7 +323,7 @@ public class MenuHandleUsers {
         return inputScanner.nextLine();
     }
 
-
+    /**runs the checkinput and throws exception if not ok*/
     protected String checkExceptionDeleteUserInput() throws InputMismatchException{
         try {
             String inputToCheck = deleteUserInput();
@@ -334,14 +334,13 @@ public class MenuHandleUsers {
         }
     }
 
-    /**checks the input*/
+    /**checks the input and throws exception message if input is not ok*/
     protected void checkDeleteUserInput(String testInput){
         if(testInput.isEmpty() || testInput.isBlank()){
             throw new InputMismatchException("It cant be empty please choose yes or no");
         }else if(startProgram.hasLetterNumCombo(testInput)){
             throw new InputMismatchException("please only enter yes or no");
         }
-
     }
 
     /**This method does so the admin can delete the user*/
@@ -356,7 +355,6 @@ public class MenuHandleUsers {
         }catch (InputMismatchException e){
             System.out.println(e.getMessage());
         }
-
     }
 
     /**Prints the menu choices for admin when changing the account of a user*/
@@ -372,6 +370,4 @@ public class MenuHandleUsers {
                         "8 - Back to Main Menu  \n" +
                         "9 - See Menu again";
     }
-
-
 }
