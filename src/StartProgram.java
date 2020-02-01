@@ -5,6 +5,7 @@ public class StartProgram {
     private MenuLogic menuLogic = new MenuLogic();
     private Admin admin = new Admin(0, 20000, "Administrator");
     private Scanner userInput = new Scanner(System.in);
+
     public static String currentUser = "";
 
     /**This method starts the program, it calls the login method.*/
@@ -64,7 +65,7 @@ public class StartProgram {
     /**This method resets currentUser and calls login admin again so that you
      * can login again as another user or as admin again*/
     public void logout(){
-        currentUser = "";
+        setCurrentUser("");
         loginAdmin();
     }
 
@@ -147,11 +148,6 @@ public class StartProgram {
         // if we find at least one digit and one letter, return true
         // if combo not found, return false
         return (numFound && letterFound);
-    }
-
-    /**Get admin*/
-    public Admin getAdmin() {
-        return admin;
     }
 
     /**This method get the input the first time
@@ -388,8 +384,16 @@ public class StartProgram {
     }
 
     /**getters, setters*/
-    public String getCurrentUser() {
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public String getCurrentUser(){
         return currentUser;
+    }
+
+    public static void setCurrentUser(String currentUser) {
+        StartProgram.currentUser = currentUser;
     }
 
 }
