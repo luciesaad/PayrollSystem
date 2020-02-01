@@ -3,11 +3,10 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.InputMismatchException;
 
 import static org.junit.Assert.*;
 
-public class StartProgramTest {
+public class StartProgramUnitTest {
     private static StartProgram startProgram;
 
     @BeforeClass
@@ -69,15 +68,6 @@ public class StartProgramTest {
     }
 
     @Test
-    public void printMenuAdmin() {
-        String inputUser = "1";
-        InputStream in = new ByteArrayInputStream(inputUser.getBytes());
-        System.setIn(in);
-
-        //TODO:Check if it does case 1
-    }
-
-    @Test
     public void testCheckIntSize_returnTrue(){
         assertTrue("failed to check int size", startProgram.checkIntSize("2147483647"));
     }
@@ -85,14 +75,6 @@ public class StartProgramTest {
     @Test
     public void testCheckIntSize_returnFalse(){
         assertFalse("Failed to check int size", startProgram.checkIntSize("12"));
-    }
-
-    @Test
-    public void usernameMatches() {
-        startProgram.getAdmin().createUser("kalle1", "kalle1234", 0, 50,"tester");
-        String testInput = "kalle1";
-        assertTrue("Failed to match username",startProgram.usernameMatches(testInput) );
-        startProgram.getAdmin().deleteUser("kalle1");
     }
 
     @Test
@@ -104,7 +86,6 @@ public class StartProgramTest {
     @Test
     public void testAdminpswMatches() {
         String testInput = "admin1234";
-        String testUserName ="admin1";
         assertTrue("Failed to match password", startProgram.adminPswMatches(testInput));
     }
 

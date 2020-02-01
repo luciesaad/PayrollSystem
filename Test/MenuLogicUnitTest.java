@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
-public class MenuLogicTest {
+public class MenuLogicUnitTest {
     private static MenuLogic menuLogic;
     @BeforeClass
     public static void suiteSetUp(){

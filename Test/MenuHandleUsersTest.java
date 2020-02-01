@@ -9,13 +9,12 @@ import java.util.InputMismatchException;
 import static org.junit.Assert.*;
 
 public class MenuHandleUsersTest {
-    private static StartProgram startProgram;
+
     private static MenuHandleUsers menuHandleUsers;
 
 
     @BeforeClass
     public static void suiteSetUp() {
-        startProgram = new StartProgram();
         menuHandleUsers = new MenuHandleUsers();
     }
 
@@ -43,16 +42,6 @@ public class MenuHandleUsersTest {
             System.out.println(e.getMessage());
         }
     }
-    @Test
-    public void testReturnChosenUser_Correct() {
-        startProgram.getAdmin().createUser("frans1", "frans123", 0,40, "tester");
-        try {
-            assertEquals("Failed to get user", "frans1", menuHandleUsers.returnChosenUser(0).getUsername());
-        } catch (NoSuchFieldException e) {
-            System.out.println(e.getMessage());
-        }
-        startProgram.getAdmin().deleteUser("frans1");
-    }
 
     @Test
     public void testChangeUserNameInput() {
@@ -60,11 +49,6 @@ public class MenuHandleUsersTest {
         InputStream in = new ByteArrayInputStream(inputUser.getBytes());
         System.setIn(in);
         assertEquals("Failed to get the input for the name change", inputUser, menuHandleUsers.changeUserNameInput());
-    }
-
-    @Test
-    public void testUpdateUsersSwitchMenu(){
-        //TODO: be able to test int menu some way?
     }
 
     @Test
@@ -76,11 +60,6 @@ public class MenuHandleUsersTest {
     }
 
     @Test
-    public void testChangeUserPassword(){
-        //TODO:How to test?? The same as changeUserName
-    }
-
-    @Test
     public void testChangeUserSalaryInput(){
         String testSalary = "5000";
         InputStream in = new ByteArrayInputStream(testSalary.getBytes());
@@ -89,21 +68,11 @@ public class MenuHandleUsersTest {
     }
 
     @Test
-    public void testChangeUserSalary(){
-        //TODO: how to test?? The same as changeUserName and ChangeUserPassword
-    }
-
-    @Test
     public void testChangeAccountBalanceInout(){
         String testBalance = "5000";
         InputStream in = new ByteArrayInputStream(testBalance.getBytes());
         System.setIn(in);
         assertEquals("Failed to get input for change account balance", "5000", menuHandleUsers.changeAccountBalanceInput());
-    }
-
-    @Test
-    public void testChangeAccountBalance(){
-        //TODO: how to test?
     }
 
     @Test

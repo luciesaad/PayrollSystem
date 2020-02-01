@@ -1,10 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import java.util.ArrayList;
 
-public class UserTest {
+import static org.junit.Assert.assertEquals;
+
+public class UserFunctionTest {
 
     private static User userTest;
     private static ArrayList<User> usersArrTest;
@@ -16,15 +17,6 @@ public class UserTest {
         usersArrTest = new ArrayList<>();
         usersArrTest.add(userTest);
         currentUser = userTest.getUsername();
-    }
-
-    /**A test on getters when viewing a user. */
-    @Test
-    public void viewAccount() {
-        assertEquals("User getUsername failed.","lucie1",userTest.getUsername());
-        assertEquals("User getAccountBalance failed.",0,userTest.getAccountBalance());
-        assertEquals("User getEmploymentRole failed.","Programmer",userTest.getEmploymentRole());
-        assertEquals("User getSalary failed.",20000,userTest.getSalary());
     }
 
     @Test
