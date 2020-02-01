@@ -79,12 +79,12 @@ public class StartProgramTest {
 
     @Test
     public void testCheckIntSize_returnTrue(){
-        assertTrue("failed to check int size", startProgram.checkIntSize(2147483647));
+        assertTrue("failed to check int size", startProgram.checkIntSize("2147483647"));
     }
 
     @Test
     public void testCheckIntSize_returnFalse(){
-        assertFalse("Failed to check int size", startProgram.checkIntSize(12));
+        assertFalse("Failed to check int size", startProgram.checkIntSize("12"));
     }
 
     @Test

@@ -110,10 +110,11 @@ public class StartProgram {
     }
 
     /**This method checks int input*/
-    public boolean checkIntSize(int intToCheck){
-        if(intToCheck >= 2147483646){
+    public boolean checkIntSize(String intToCheck){
+        float check = Float.parseFloat(intToCheck);
+        if(check >= 2147483646){
             return true;
-        }else if(intToCheck <= -2147483646){
+        }else if(check <= -2147483646){
             return true;
         }
         else{
@@ -189,7 +190,7 @@ public class StartProgram {
             throw new InputMismatchException("Input cant be empty!");
         }else if(hasLetterNumCombo(menuValue)){
             throw new InputMismatchException("Input cant be letters and numbers");
-        }else if(checkIntSize(Integer.parseInt(menuValue))){
+        }else if(checkIntSize(menuValue)){
             throw new InputMismatchException("please only input one number");
         }else if(menuValue.equals("") || menuValue == null){
             throw new NumberFormatException("Input cant be empty");

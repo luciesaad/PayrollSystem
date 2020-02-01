@@ -93,6 +93,8 @@ public class CreateUserLogic {
             throw new InputMismatchException("Account balance can´t be blank ");
         }else if(startProgram.hasLetterNumCombo(account)){
             throw new InputMismatchException("Account balance can only be numbers, please try again!");
+        }else if(startProgram.checkIntSize(account)){
+            throw new NumberFormatException("Account value can´t be that much");
         }
     }
 
@@ -122,17 +124,19 @@ public class CreateUserLogic {
             throw new InputMismatchException("Salary can´t be blank");
         }else if(startProgram.hasLetterNumCombo(userSalary)){
             throw new InputMismatchException("Salary can´t be numbers and letters, please enter only numbers!");
+        }else if(startProgram.checkIntSize(userSalary)){
+            throw new NumberFormatException("Salary can´t be that much");
         }
     }
 
     /**The method runs check method and throws exception or returns true*/
-    protected boolean createUserSalary() throws InputMismatchException{
+    protected boolean createUserSalary() throws InputMismatchException, NumberFormatException{
         String salary = setUserSalary();
         try {
             checkUserSalary(salary);
             userSalary += Integer.parseInt(salary);
             return true;
-        }catch (InputMismatchException e){
+        }catch (InputMismatchException | NumberFormatException e){
             throw e;
         }
     }
