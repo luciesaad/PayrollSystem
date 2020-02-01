@@ -22,11 +22,11 @@ public class SmokeTest {
         logoutState();
         //log in as the admin
         loginAdmin();
-        //show administration menu and check viewing current user shows correct data
+        //show administration menu
         getCorrectMenuAdmin();
         //logout
         logout();
-        //check user logged out
+        //check users logged out
         logoutState();
     }
 
@@ -34,13 +34,13 @@ public class SmokeTest {
     public void testRunProgramAsUser(){
         //assume all users logged out
         logoutState();
-        //log in as the admin
+        //log in as a user
         loginUser();
-        //show administration menu and check viewing current user shows correct data
+        //show user menu
         getCorrectMenuUser();
         //logout
         logout();
-        //check user logged out
+        //check users logged out
         logoutState();
     }
 
