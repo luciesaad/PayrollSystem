@@ -23,7 +23,7 @@ public class StartProgram {
 
     /**This method handles login, takes user input and checks calls methods that
      * checks if username and password is a match to any user or admin.*/
-    public void login() {
+    private void login() {
         Scanner input = new Scanner(System.in);
         boolean loginDone = false;
         while (!loginDone){
