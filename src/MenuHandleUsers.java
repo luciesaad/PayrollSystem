@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class MenuHandleUsers {
 
-    private static StartProgram startProgram = new StartProgram();
+   private static Utils utils = Utils.getInstance();
     private static CreateUserLogic createUserLogic = new CreateUserLogic();
     private User user;
     private String newUserName;
@@ -15,7 +15,7 @@ public class MenuHandleUsers {
     /**This method checks if the user array has users and if it does it
      * calls two methods, printAllUsers and chooserUSer*/
     public void adminHandleUsers(){
-        if(!startProgram.getAdmin().getArrayUsers().isEmpty()) {
+        if(!utils.getAdmin().getArrayUsers().isEmpty()) {
             printAllUsers();
             chooseUser();
         }else {
@@ -26,8 +26,8 @@ public class MenuHandleUsers {
     /**This method gets all the users in the Array that holds all the users.*/
     protected void printAllUsers() {
         String user;
-            for (int i = 0; i < startProgram.getAdmin().getArrayUsers().size(); i++) {
-                user = startProgram.getAdmin().getArrayUsers().get(i).getUsername();
+            for (int i = 0; i < utils.getAdmin().getArrayUsers().size(); i++) {
+                user = utils.getAdmin().getArrayUsers().get(i).getUsername();
                 System.out.println(i + " " + user);
             }
     }
@@ -35,10 +35,10 @@ public class MenuHandleUsers {
     /**This method gets the admins input on what user admin want´s to see.
      * @return outValue*/
     protected int chooseUserInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         String inValue;
         System.out.print("What user do you want to update? Please only enter the number");
-        inValue = scannerInput.nextLine();
+        inValue = scanner.nextLine();
         int outValue = Integer.parseInt(inValue);
         return outValue;
     }
@@ -48,9 +48,9 @@ public class MenuHandleUsers {
      * @return index of user
      * @exception NoSuchFieldException*/
     protected User returnChosenUser(int userIndex) throws NoSuchFieldException{
-        for (int i = 0; i < startProgram.getAdmin().getArrayUsers().size(); i++){
+        for (int i = 0; i < utils.getAdmin().getArrayUsers().size(); i++){
             if(i == userIndex){
-                return  startProgram.getAdmin().getArrayUsers().get(i);
+                return  utils.getAdmin().getArrayUsers().get(i);
             }
         }
         throw  new NoSuchFieldException("The input did not match any user");
@@ -77,52 +77,52 @@ public class MenuHandleUsers {
      * Like changing username, password and more.
      * @param menu holds the menu option*/
     protected void updateUsersSwitchMenu(int menu){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Choose a number: ");
-        menu = scannerInput.nextInt();
+        menu = scanner.nextInt();
         while (menu != 8) {
             switch (menu) {
                 case 1:
                     //view account user
                     user.viewAccount(user.getUsername());
                     System.out.println("To see menu again press 9:");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 2:
                     //Change username
                     changeUserName();
                     System.out.println("To see menu again press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 3:
                     //Change password
                     changeUserPassword();
                     System.out.println("To see menu again, press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 4:
                     //Change salary
                     changeUserSalary();
                     System.out.println("To see menu again, press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 5:
                     //Change Account balance
                     changeAccountBalance();
                     System.out.println("To see menu again, press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 6:
                     //Change user role
                     changeUserRole();
                     System.out.println("To see Menu again, press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 7:
                     //Delete user
                     deleteUser();
                     System.out.println("To see menu again press 9: ");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
                 case 8:
                     //Go back to Main menu
@@ -131,7 +131,7 @@ public class MenuHandleUsers {
                     //Print menu again
                     System.out.println(printMenuEditUser());
                     System.out.println("Choose a number:");
-                    menu = scannerInput.nextInt();
+                    menu = scanner.nextInt();
                     break;
             }
         }
@@ -139,9 +139,9 @@ public class MenuHandleUsers {
 
     /**This method gets the admins input for changing the users username*/
     protected String changeUserNameInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter new username: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**This method calls on a method that checks the new username so it checks all the
@@ -178,9 +178,9 @@ public class MenuHandleUsers {
 
     /**This method gets the new password that admin puts in*/
     protected String changeUserPasswordInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter new password: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**This method calls on another method that checks if password is ok, if not it throws
@@ -215,9 +215,9 @@ public class MenuHandleUsers {
 
     /**gets admin input and returns it*/
     protected String changeUserSalaryInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter new salary: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**check the input and throws exception if not ok*/
@@ -248,9 +248,9 @@ public class MenuHandleUsers {
 
     /**Takes the admin input and returns it*/
     protected String changeAccountBalanceInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter new account balance: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**The method checks the input and if not ok throws a exception*/
@@ -282,9 +282,9 @@ public class MenuHandleUsers {
 
     /**Takes admins input for role change and returns it*/
     protected String changeUserRoleInput(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter new employment role: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**This method checks the input value and if not correct input it throws a exception
@@ -318,9 +318,9 @@ public class MenuHandleUsers {
 
     /**Takes the answere if admin want to delete*/
     protected String deleteUserInput(){
-        Scanner inputScanner = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Are you sure you want to delete user? ");
-        return inputScanner.nextLine();
+        return scanner.nextLine();
     }
 
     /**runs the checkinput and throws exception if not ok*/
@@ -338,7 +338,7 @@ public class MenuHandleUsers {
     protected void checkDeleteUserInput(String testInput){
         if(testInput.isEmpty() || testInput.isBlank()){
             throw new InputMismatchException("It cant be empty please choose yes or no");
-        }else if(startProgram.hasLetterNumCombo(testInput)){
+        }else if(utils.hasLetterNumCombo(testInput)){
             throw new InputMismatchException("please only enter yes or no");
         }
     }
@@ -349,7 +349,7 @@ public class MenuHandleUsers {
         try{
            String confirm = checkExceptionDeleteUserInput();
             if(confirm.equals("yes") || confirm.equals("Yes") || confirm.equals("y")) {
-                startProgram.getAdmin().deleteUser(user.getUsername());
+                utils.getAdmin().deleteUser(user.getUsername());
                 System.out.println("User " + username + " was deleted");
             }
         }catch (InputMismatchException e){

@@ -7,7 +7,6 @@ import java.io.InputStream;
 import static org.junit.Assert.assertEquals;
 
 public class AdminFunctionTest {
-
     private static Admin adminTest ;
 
     @BeforeClass

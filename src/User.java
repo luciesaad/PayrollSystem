@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class User extends Account implements MenuInterFace {
-    private Scanner scan = new Scanner(System.in);
+    private Utils utils = Utils.getInstance();
     private int requestedSalary;
     private String requestedRole;
 
@@ -54,8 +54,9 @@ public class User extends Account implements MenuInterFace {
      * takes input of int and runs setRequestedSalary
      */
     public void requestChangeSalary(){
+        Scanner scanner = utils.getScanner();
         System.out.println("You are applying for a change of salary. Please enter your desired salary: ");
-        int newSalaryRequest = scan.nextInt();
+        int newSalaryRequest = scanner.nextInt();
         setRequestedSalary(newSalaryRequest);
         System.out.println("Your request for a change of salary has been sent to Administrator.");
     }
@@ -64,8 +65,9 @@ public class User extends Account implements MenuInterFace {
      * takes input of String and runs setRequestedRole
      */
     public void requestChangeRole(){
+        Scanner scanner = utils.getScanner();
         System.out.println("You are applying for a change of role. Please enter your new role: ");
-        String newRoleRequest = scan.next();
+        String newRoleRequest = scanner.next();
         setRequestedRole(newRoleRequest);
         System.out.println("Your request for a change of role has been sent to Administrator.");
     }
@@ -77,14 +79,15 @@ public class User extends Account implements MenuInterFace {
      * catches NoSuchField exception if entered user not found
      */
     public boolean deleteMyAccount(){
+        Scanner scanner = utils.getScanner();
         boolean deleted = false;
         //user's role cannot be an administrator if deletion is to succeed
         if(!getEmploymentRole().equals("Administrator")){
             //ask for username and password
             System.out.println("To delete your account, please enter your username: ");
-            String enteredUsername = scan.next();
+            String enteredUsername = scanner.next();
             System.out.println("Please enter your password: ");
-            String enteredPsw = scan.next();
+            String enteredPsw = scanner.next();
             try{
                 //set user to current user
                 User user = getUser(StartProgram.currentUser);

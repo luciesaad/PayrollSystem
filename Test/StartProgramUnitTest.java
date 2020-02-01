@@ -7,16 +7,18 @@ import java.io.InputStream;
 import static org.junit.Assert.*;
 
 public class StartProgramUnitTest {
+    private static Utils utils;
     private static StartProgram startProgram;
 
     @BeforeClass
     public static void suiteSetUp(){
+        utils = new Utils();
         startProgram = new StartProgram();
     }
 
     @Test
     public void getAdmin() {
-        assertEquals("Failed to get Admin", "admin1", startProgram.getAdmin().getUsername());
+        assertEquals("Failed to get Admin", "admin1", utils.getAdmin().getUsername());
     }
 
     @Test
@@ -69,18 +71,18 @@ public class StartProgramUnitTest {
 
     @Test
     public void testCheckIntSize_returnTrue(){
-        assertTrue("failed to check int size", startProgram.checkIntSize("2147483647"));
+        assertTrue("failed to check int size", utils.checkIntSize("2147483647"));
     }
 
     @Test
     public void testCheckIntSize_returnFalse(){
-        assertFalse("Failed to check int size", startProgram.checkIntSize("12"));
+        assertFalse("Failed to check int size", utils.checkIntSize("12"));
     }
 
     @Test
     public void testUsersNameMatches(){
         String testInput = "kalle";
-        assertFalse("Failed to match username for user", startProgram.usersNameMatches(testInput));
+        assertFalse("Failed to match username for user", utils.usersNameMatches(testInput));
     }
 
     @Test
@@ -98,12 +100,12 @@ public class StartProgramUnitTest {
     @Test
     public void testHasCorrectLength() {
         String testInput = "Lucie12";
-        assertTrue("Failed to check lengt", startProgram.hasCorrectLength(testInput) );
+        assertTrue("Failed to check lengt", utils.hasCorrectLength(testInput) );
     }
 
     @Test
     public void testHasLetterNumCombo() {
         String testInput = "Lucie12";
-        assertTrue("Failed to check letter/number combo", startProgram.hasLetterNumCombo(testInput));
+        assertTrue("Failed to check letter/number combo", utils.hasLetterNumCombo(testInput));
     }
 }

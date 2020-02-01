@@ -7,14 +7,14 @@ public class CreateUserLogic {
     private int userAccountBalance;
     private int userSalary;
     private String userPsw;
-    private static StartProgram startProgram = new StartProgram();
+    private static Utils utils = Utils.getInstance();
 
     /**This method takes in admin input for creating a user username
      * @return String username*/
     protected String setUsernameInput(){
-        Scanner inputUser = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter username: ");
-        userName = inputUser.nextLine();
+        userName = scanner.nextLine();
         return userName;
     }
 
@@ -23,11 +23,11 @@ public class CreateUserLogic {
     public void checkUserNameInput(String username){
         if(inputIsEmpty(username)){
             throw new InputMismatchException("Username can´t be empty ");
-        }else if(!startProgram.hasCorrectLength(username)){
+        }else if(!utils.hasCorrectLength(username)){
             throw new InputMismatchException("Username value must have 6-10 characters. Please try again ");
-        }else if(!startProgram.hasLetterNumCombo(username)){
+        }else if(!utils.hasLetterNumCombo(username)){
             throw new InputMismatchException("Username must contain both letters and numbers. Please try again!");
-        }else if(startProgram.usersNameMatches(username)){
+        }else if(utils.usersNameMatches(username)){
             throw new InputMismatchException("please choose another username");
         }
     }
@@ -47,9 +47,9 @@ public class CreateUserLogic {
     /**The method takes the admin input for password and returns the input
      * @return userPsw*/
     protected String setUserPswInput(){
-        Scanner inputUser = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter Password: ");
-        userPsw = inputUser.nextLine();
+        userPsw = scanner.nextLine();
         return userPsw;
     }
 
@@ -58,9 +58,9 @@ public class CreateUserLogic {
     protected void checkUserPsw(String userPsw){
         if(inputIsEmpty(userPsw)){
             throw new InputMismatchException("Password can´t be empty ");
-        }else if(!startProgram.hasCorrectLength(userPsw)){
+        }else if(!utils.hasCorrectLength(userPsw)){
             throw new InputMismatchException("Password value must have 6-10 characters. Please try again ");
-        }else if(!startProgram.hasLetterNumCombo(userPsw)){
+        }else if(!utils.hasLetterNumCombo(userPsw)){
             throw new InputMismatchException("Password must contain both letters and numbers. Please try again!");
         }
     }
@@ -81,9 +81,9 @@ public class CreateUserLogic {
     /**This method takes admin input and returns the value
      * @return account*/
     protected String setUserAccountBalance(){
-        Scanner inputUser = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter Account balance: ");
-        String account = inputUser.nextLine();
+        String account = scanner.nextLine();
         return account;
     }
 
@@ -91,9 +91,9 @@ public class CreateUserLogic {
     protected void checkUserAccountBalance(String account){
         if(inputIsEmpty(account)){
             throw new InputMismatchException("Account balance can´t be blank ");
-        }else if(startProgram.hasLetterNumCombo(account)){
+        }else if(utils.hasLetterNumCombo(account)){
             throw new InputMismatchException("Account balance can only be numbers, please try again!");
-        }else if(startProgram.checkIntSize(account)){
+        }else if(utils.checkIntSize(account)){
             throw new NumberFormatException("Account value can´t be that much");
         }
     }
@@ -113,18 +113,18 @@ public class CreateUserLogic {
 
     /**The method takes admin input and returns the value*/
     protected String setUserSalary(){
-        Scanner inputUser = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter salary: ");
-        return inputUser.nextLine();
+        return scanner.nextLine();
     }
 
     /**The method checks if salary value is not ok. If not it throws a exception*/
     protected void checkUserSalary(String userSalary){
         if(inputIsEmpty(userSalary)){
             throw new InputMismatchException("Salary can´t be blank");
-        }else if(startProgram.hasLetterNumCombo(userSalary)){
+        }else if(utils.hasLetterNumCombo(userSalary)){
             throw new InputMismatchException("Salary can´t be numbers and letters, please enter only numbers!");
-        }else if(startProgram.checkIntSize(userSalary)){
+        }else if(utils.checkIntSize(userSalary)){
             throw new NumberFormatException("Salary can´t be that much");
         }
     }
@@ -143,9 +143,9 @@ public class CreateUserLogic {
 
     /**The method takes admin input and returns the value*/
     protected String setUserEmployment(){
-        Scanner inputUser = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Enter Employment role: ");
-        employmentRole = inputUser.nextLine();
+        employmentRole = scanner.nextLine();
         return employmentRole;
     }
 
@@ -155,7 +155,7 @@ public class CreateUserLogic {
             throw new InputMismatchException("Employment role can´t be empty ");
         }else if(role.equals("admin")){
             throw new InputMismatchException("Employment role can´t be admin ");
-        }else if(startProgram.hasLetterNumCombo(role)){
+        }else if(utils.hasLetterNumCombo(role)){
             throw new InputMismatchException("Employment role can´t contain both letters and numbers. Please try again!");
         }
     }

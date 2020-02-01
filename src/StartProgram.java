@@ -2,41 +2,44 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class StartProgram {
-    private MenuLogic menuLogic = new MenuLogic();
-    private Admin admin = new Admin(0, 20000, "Administrator");
-    private Scanner userInput = new Scanner(System.in);
-    public static String currentUser = "";
+    private MenuLogic menuLogic;
+    private Utils utils;
+    public static String currentUser;
+
+    public StartProgram() {
+        menuLogic = new MenuLogic();
+        utils = Utils.getInstance();
+        currentUser = "";
+    }
 
     /**This method starts the program, it calls the login method.*/
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
         loginAdmin();
-        userInput.close();
     }
 
     /**Calls the login method*/
     protected void loginAdmin() {
         login();
-        userInput.close();
     }
 
     /**This method handles login, takes user input and checks calls methods that
      * checks if username and password is a match to any user or admin.*/
     private void login() {
-        Scanner input = new Scanner(System.in);
+      Scanner scanner = utils.getScanner();
         boolean loginDone = false;
         while (!loginDone){
             System.out.print("Enter Username: ");
-            String username = input.nextLine();
+            String username = scanner.nextLine();
             System.out.print("Enter Password: ");
-            String password = input.nextLine();
+            String password = scanner.nextLine();
 
             //if there is no username match
-            if(!username.equals(admin.getUsername()) && !usernameMatches(username)){
+            if(!username.equals(utils.getAdmin().getUsername()) && !usernameMatches(username)){
                System.out.println(checkInputConditions(username));
             }
             //if admin logs in
-            else if(username.equals(admin.getUsername())){
+            else if(username.equals(utils.getAdmin().getUsername())){
                 if(adminPswMatches(password)){
                     loginDone = true;
                     currentUser = username;
@@ -52,7 +55,7 @@ public class StartProgram {
                     loginDone = true;
                     currentUser = username;
                     System.out.println("Welcome " + username);
-                    printMenuUser();
+                    //printMenuUser();
                 }
                 else{
                     System.out.println("Login unsuccessful. Try again.");
@@ -65,14 +68,14 @@ public class StartProgram {
      * can login again as another user or as admin again*/
     public void logout(){
         currentUser = "";
-        loginAdmin();
+       // loginAdmin();
     }
 
     /**This method checks if username matches and catches exception if don´t
      * @exception NoSuchFieldException if user isn´t a match*/
     protected boolean usernameMatches(String matchUsername){
             try {
-               admin.getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
+                utils.getAdmin().getUser(matchUsername); //access get user method //TODO: can the static reference be fixed?
                 return true;
             } catch (NoSuchFieldException e) {
                e.getLocalizedMessage();
@@ -80,117 +83,72 @@ public class StartProgram {
             }
     }
     /**This method checks if admin password matches*/
-    protected boolean adminPswMatches(String matchPsw){return matchPsw.equals(admin.getPsw());}
+    protected boolean adminPswMatches(String matchPsw){return matchPsw.equals(utils.getAdmin().getPsw());}
 
     /**This method checks if users username matches*/
     protected boolean userPswMatches(String matchUsername, String matchPsw){
         try {
-            return matchPsw.equals(admin.getUser(matchUsername).getPsw());
+            return matchPsw.equals(utils.getAdmin().getUser(matchUsername).getPsw());
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    /**This method checks if admin username matches*/
-    protected boolean usersNameMatches(String match){return  match.equals(admin.printUserName(match));}
-
     /**This method checks String input for username
      * @return String with instructions*/
     protected String checkInputConditions(String input) {
         if (input.isEmpty()) {
             return "Try again: ";
-        } else if(!hasCorrectLength(input)){
+        } else if(!utils.hasCorrectLength(input)){
            return "Input value must have 6-10 characters. Please try again: ";
-        }else if(!hasLetterNumCombo(input)){
+        }else if(!utils.hasLetterNumCombo(input)){
             return "Input value must contain both letters and numbers. Please try again:";
         } else {
             return "Your authentication information is incorrect. Please try again.";
         }
     }
 
-    /**This method checks int input*/
-    public boolean checkIntSize(String intToCheck){
-        float check = Float.parseFloat(intToCheck);
-        if(check >= 2147483646){
-            return true;
-        }else if(check <= -2147483646){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
-    /**This method checks so that a username and password have the correct length*/
-    protected boolean hasCorrectLength(String input){
-        if(input.length() < 6 || input.length() > 10){
-            return false;
-        }
-        return true;
-    }
 
-    /**This method checks so that a username and password contains both char and number*/
-    protected boolean hasLetterNumCombo(String input){
-        StringBuilder sb = new StringBuilder();
-        boolean numFound = false;
-        boolean letterFound = false;
-        for(char c : input.toCharArray()) {      //for each char in char array from input, do following:
-            if (Character.isDigit(c)) {           //check if one of chars is a number
-                sb.append(c);
-                numFound = true;
-            } else if (Character.isLetter(c)) {
-                sb.append(c);
-                letterFound = true;
-            }
-        }
-        // if we find at least one digit and one letter, return true
-        // if combo not found, return false
-        return (numFound && letterFound);
-    }
-
-    /**Get admin*/
-    public Admin getAdmin() {
-        return admin;
-    }
 
     /**This method get the input the first time
      * @return the value of the menu choice*/
     protected String printMenuAdminInput_firstTime(){
-        Scanner scannerInput = new Scanner(System.in);
+       Scanner scanner = utils.getScanner();
         System.out.println("Menu: ");
-        System.out.println(admin.printMenu());
+        System.out.println(utils.getAdmin().printMenu());
         System.out.println("Enter the menu number of what you want to do: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**this method get the input value every time the admin have choosen a option and wants
      * to go back to the menu again or do another menu option
      * @return returns the admin input*/
     protected String printMenuAdminInput_goBackToMenu(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("To go back to the menu press 8: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**This method takes admin input when admin have been in the menu that
      * handles changes for Users
      * @return  returns admin input*/
     protected String printMenuAdminInput_returnFromHandleUserMenu(){
-        Scanner scannerInput = new Scanner(System.in);
+        Scanner scanner = utils.getScanner();
         System.out.println("Main Menu");
-        System.out.println(admin.printMenu());
+        System.out.println(utils.getAdmin().printMenu());
         System.out.println("Enter the number of what you want to do: ");
-        return scannerInput.nextLine();
+        return scanner.nextLine();
     }
 
     /**This method checks the value admin inputed and if not ok it returns a exception*/
     protected void checkMenuInput(String menuValue)throws InputMismatchException, NumberFormatException {
         if(menuValue.isEmpty() && menuValue.isBlank()){
             throw new InputMismatchException("Input cant be empty!");
-        }else if(hasLetterNumCombo(menuValue)){
+        }else if(utils.hasLetterNumCombo(menuValue)){
             throw new InputMismatchException("Input cant be letters and numbers");
-        }else if(checkIntSize(menuValue)){
+        }else if(utils.checkIntSize(menuValue)){
             throw new InputMismatchException("please only input one number");
         }else if(menuValue.equals("") || menuValue == null){
             throw new NumberFormatException("Input cant be empty");
@@ -267,7 +225,7 @@ public class StartProgram {
             switch (menu) {
                 case 1:
                     //view Account
-                    admin.viewAccount(getAdmin().getUsername());
+                   utils.getAdmin().viewAccount(utils.getAdmin().getUsername());
                     menu = printMenuAdminInt_goBackToMenu();
                     break;
                 case 2:
@@ -282,7 +240,7 @@ public class StartProgram {
                     break;
                 case 4:
                     //Requests
-                    admin.checkUserRequests();
+                    utils.getAdmin().checkUserRequests();
                     menu = printMenuAdminInt_goBackToMenu();
                     break;
                 case 5:
@@ -309,55 +267,56 @@ public class StartProgram {
 
     /**Method with switch menu for users.*/
     public void printMenuUser(){
+        Scanner scanner = utils.getScanner();
         int userInputInt = 0;
         System.out.println("Menu: ");
         try {
-            System.out.println(getAdmin().getUser(currentUser).printMenu());
+            System.out.println(utils.getAdmin().getUser(currentUser).printMenu());
         }catch (NoSuchFieldException e){
             System.out.println(e.getMessage());
         }
         System.out.println("Enter the number of what you want to do: ");
-        userInputInt = userInput.nextInt();
+        userInputInt = scanner.nextInt();
         while(userInputInt != 6 && userInputInt != 5) {
             switch (userInputInt) {
                 case 1:
                     //view Account
                     try {
-                       getAdmin().getUser(currentUser).viewAccount(currentUser);
+                       utils.getAdmin().getUser(currentUser).viewAccount(currentUser);
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
                     }
                     System.out.println("To go back to menu press 7: ");
-                    userInputInt = userInput.nextInt();
+                    userInputInt = scanner.nextInt();
                     break;
                 case 2:
                     //Request change of salary
                     try {
-                        getAdmin().getUser(currentUser).requestChangeSalary();
+                        utils.getAdmin().getUser(currentUser).requestChangeSalary();
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
                     }
                     System.out.println("To go back to menu press 7: ");
-                    userInputInt = userInput.nextInt();
+                    userInputInt = scanner.nextInt();
                     break;
                 case 3:
                     //Request change of role
                     try {
-                        getAdmin().getUser(currentUser).requestChangeRole();
+                        utils.getAdmin().getUser(currentUser).requestChangeRole();
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
                     }
                     System.out.println("To go back to menu press 7: ");
-                    userInputInt = userInput.nextInt();
+                    userInputInt = scanner.nextInt();
                     break;
                 case 4:
                     //Delete my Account
                     try {
-                        if(getAdmin().getUser(currentUser).deleteMyAccount()){
+                        if(utils.getAdmin().getUser(currentUser).deleteMyAccount()){
                             logout();
                         }else{
                             System.out.println("To go back to menu press 7: ");
-                            userInputInt = userInput.nextInt();
+                            userInputInt = scanner.nextInt();
                         }
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
@@ -372,12 +331,12 @@ public class StartProgram {
                 case 7:
                     //Print Menu again
                     try {
-                        System.out.println(getAdmin().getUser(currentUser).printMenu());
+                        System.out.println(utils.getAdmin().getUser(currentUser).printMenu());
                     }catch (NoSuchFieldException e){
                         System.out.println(e.getMessage());
                     }
                     System.out.println("Enter the number of what you want to do: ");
-                    userInputInt = userInput.nextInt();
+                    userInputInt = scanner.nextInt();
                     break;
             }
         }

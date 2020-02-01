@@ -10,11 +10,11 @@ import static org.junit.Assert.assertTrue;
 
 public class CreateUserLogicUnitTest {
     private static CreateUserLogic createUserLogic;
-    private static StartProgram startProgram;
+    private static Utils utils;
 
     @BeforeClass
     public static void suiteSetup(){
-        startProgram = new StartProgram();
+        utils = new Utils();
         createUserLogic = new CreateUserLogic();
     }
 
@@ -111,7 +111,7 @@ public class CreateUserLogicUnitTest {
     @Test
     public void testHasNumber(){
         String testInput = "11aa";
-        assertTrue("",startProgram.hasLetterNumCombo(testInput));
+        assertTrue("", utils.hasLetterNumCombo(testInput));
     }
 
     @Test(expected = InputMismatchException.class)

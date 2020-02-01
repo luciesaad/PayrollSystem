@@ -1,8 +1,7 @@
 import java.util.InputMismatchException;
 
 public class MenuLogic {
-
-    private static StartProgram startProgram = new StartProgram();
+    private static Utils utils = new Utils();
     private static CreateUserLogic createUserLogic = new CreateUserLogic();
     private static MenuHandleUsers menuHandleUsers = new MenuHandleUsers();
 
@@ -59,8 +58,8 @@ public class MenuLogic {
                 userSalaryCreated = false;
             }
         }
-        startProgram.getAdmin().createUser(createUserLogic.getUserName(), createUserLogic.getUserPsw(), createUserLogic.getUserAccountBalance(), createUserLogic.getUserSalary(), createUserLogic.getEmploymentRole());
-        System.out.println("User " +  startProgram.getAdmin().printUserName(createUserLogic.getUserName())+ " was created");
+        utils.getAdmin().createUser(createUserLogic.getUserName(), createUserLogic.getUserPsw(), createUserLogic.getUserAccountBalance(), createUserLogic.getUserSalary(), createUserLogic.getEmploymentRole());
+        System.out.println("User " +  utils.getAdmin().printUserName(createUserLogic.getUserName())+ " was created");
     }
 
     /**This method calls on a method in the class MenuHandleUsers where Admin can change different things on a user*/
@@ -69,11 +68,11 @@ public class MenuLogic {
     }
     /**This method prints out admins account values*/
     public String viewAdminAccount(String username) {
-        username = startProgram.getAdmin().getUsername();
+        username = utils.getAdmin().getUsername();
       return "Account user: " + username + "\n"+
-             "Account balance: " + startProgram.getAdmin().getAccountBalance() + "\n"+
-             "Employment role: " + startProgram.getAdmin().getEmploymentRole()  + "\n"+
-             "Salary: " + startProgram.getAdmin().getSalary();
+             "Account balance: " + utils.getAdmin().getAccountBalance() + "\n"+
+             "Employment role: " + utils.getAdmin().getEmploymentRole()  + "\n"+
+             "Salary: " + utils.getAdmin().getSalary();
     }
 
     /**This method runs paySalaryReturn and also prints out the return.*/
@@ -87,23 +86,23 @@ public class MenuLogic {
         int newAccountBalance;
         int oldAccountBalance;
         int sum;
-        if(!startProgram.getAdmin().getArrayUsers().isEmpty()){
-            for (int i = 0; i < startProgram.getAdmin().getArrayUsers().size(); i++){
-                newAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getSalary();
-                oldAccountBalance = startProgram.getAdmin().getArrayUsers().get(i).getAccountBalance();
+        if(!utils.getAdmin().getArrayUsers().isEmpty()){
+            for (int i = 0; i < utils.getAdmin().getArrayUsers().size(); i++){
+                newAccountBalance = utils.getAdmin().getArrayUsers().get(i).getSalary();
+                oldAccountBalance = utils.getAdmin().getArrayUsers().get(i).getAccountBalance();
                 sum = newAccountBalance + oldAccountBalance ;
-                startProgram.getAdmin().getArrayUsers().get(i).setAccountBalance(sum);
+                utils.getAdmin().getArrayUsers().get(i).setAccountBalance(sum);
             }
-            newAccountBalance = startProgram.getAdmin().getSalary();
-            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            newAccountBalance = utils.getAdmin().getSalary();
+            oldAccountBalance = utils.getAdmin().getAccountBalance();
             sum = newAccountBalance + oldAccountBalance;
-            startProgram.getAdmin().setAccountBalance(sum);
+            utils.getAdmin().setAccountBalance(sum);
             return "The salary´s are paid out";
         }else {
-            newAccountBalance = startProgram.getAdmin().getSalary();
-            oldAccountBalance = startProgram.getAdmin().getAccountBalance();
+            newAccountBalance = utils.getAdmin().getSalary();
+            oldAccountBalance = utils.getAdmin().getAccountBalance();
             sum = newAccountBalance + oldAccountBalance;
-            startProgram.getAdmin().setAccountBalance(sum);
+            utils.getAdmin().setAccountBalance(sum);
             return "Admin was the only one that got salary payed out" + "There are no users to pay out salary to";
         }
     }

@@ -9,11 +9,9 @@ import static org.junit.Assert.assertEquals;
 public class CreateUserLogicFuntionTest {
 
     private static CreateUserLogic createUserLogic;
-    private static StartProgram startProgram;
 
     @BeforeClass
     public static void suiteSetup(){
-        startProgram = new StartProgram();
         createUserLogic = new CreateUserLogic();
     }
 
