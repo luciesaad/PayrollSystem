@@ -20,12 +20,6 @@ public class MenuHandleUsersTest {
     }
 
     @Test
-    public void testPrintAllUsers() {
-
-
-    }
-
-    @Test
     public void testGetUserToUpdate() {
         String inputUser = "0";
         InputStream in = new ByteArrayInputStream(inputUser.getBytes());

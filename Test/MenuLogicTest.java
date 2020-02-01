@@ -11,19 +11,17 @@ import static org.junit.Assert.*;
 
 public class MenuLogicTest {
     private static MenuLogic menuLogic;
-    private static StartProgram startProgram;
     @BeforeClass
     public static void suiteSetUp(){
         menuLogic = new MenuLogic();
-        startProgram = new StartProgram();
     }
 
     @Test
     public void testViewAdminAccount(){
-        String test = "Account user: " + startProgram.getAdmin().getUsername() + "\n"+
-                "Account balance: " + startProgram.getAdmin().getAccountBalance() + "\n"+
-                "Employment role: " + startProgram.getAdmin().getEmploymentRole()  + "\n"+
-                "Salary: " + startProgram.getAdmin().getSalary();
+        String test ="Account user: admin1\n" +
+        "Account balance: 20000\n" +
+        "Employment role: Administrator\n" +
+        "Salary: 20000";
         assertEquals("Failed to view admin account values", test, menuLogic.viewAdminAccount("admin1") );
     }
 
