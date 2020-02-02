@@ -8,7 +8,6 @@ import java.io.InputStream;
 public class IntegrationTest {
 
     private static StartProgram startProgram;
-
     @Before
     public void testSetUp(){
         startProgram = new StartProgram();
