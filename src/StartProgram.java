@@ -16,11 +16,13 @@ public class StartProgram {
     public void runProgram() {
         System.out.println("Welcome to Saad and Hallqvist Payroll system!");
         loginAdmin();
+        Utils.getScanner().close();
     }
 
     /**Calls the login method*/
     protected void loginAdmin() {
         login();
+        Utils.getScanner().close();
     }
 
     /**This method handles login, takes user input and checks calls methods that
@@ -55,7 +57,7 @@ public class StartProgram {
                     loginDone = true;
                     currentUser = username;
                     System.out.println("Welcome " + username);
-                    //printMenuUser();
+                    printMenuUser();
                 }
                 else{
                     System.out.println("Login unsuccessful. Try again.");

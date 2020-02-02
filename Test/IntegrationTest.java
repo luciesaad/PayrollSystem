@@ -4,10 +4,12 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class IntegrationTest {
 
     private static StartProgram startProgram;
+
     @Before
     public void testSetUp(){
         startProgram = new StartProgram();
@@ -25,7 +27,6 @@ public class IntegrationTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         startProgram.loginAdmin();
-
     }
 
     @Test

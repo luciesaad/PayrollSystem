@@ -145,8 +145,7 @@ public class CreateUserLogic {
     protected String setUserEmployment(){
         Scanner scanner = utils.getScanner();
         System.out.println("Enter Employment role: ");
-        employmentRole = scanner.nextLine();
-        return employmentRole;
+        return scanner.nextLine();
     }
 
     /**The method checks the input value and if not ok throws a exception*/
@@ -166,6 +165,7 @@ public class CreateUserLogic {
         String role = setUserEmployment();
         try{
             checkUserEmployment(role);
+            employmentRole += role;
             return true;
         }catch (InputMismatchException e){
             throw e;

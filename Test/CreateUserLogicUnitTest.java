@@ -91,8 +91,8 @@ public class CreateUserLogicUnitTest {
 
     @Test
     public void testCreateUserEmployment(){
-        String inputUser = "programmer";
-        InputStream in = new ByteArrayInputStream(inputUser.getBytes());
+        String scanner = "programmer";
+        InputStream in = new ByteArrayInputStream(scanner.getBytes());
         System.setIn(in);
         assertTrue("Failed to create user employment role", createUserLogic.createUserEmployment());
     }

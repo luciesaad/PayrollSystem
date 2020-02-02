@@ -17,7 +17,7 @@ public class Utils {
    }
 
     public static Scanner getScanner() {
-        if (scanner == null) {
+       if (scanner == null) {
             scanner = new Scanner(System.in);
         }
         return scanner;
