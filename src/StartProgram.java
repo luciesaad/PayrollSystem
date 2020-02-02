@@ -67,8 +67,8 @@ public class StartProgram {
     /**This method resets currentUser and calls login admin again so that you
      * can login again as another user or as admin again*/
     public void logout(){
-        currentUser = "";
-       // loginAdmin();
+        setCurrentUser("");
+        loginAdmin();
     }
 
     /**This method checks if username matches and catches exception if don´t
@@ -108,7 +108,6 @@ public class StartProgram {
             return "Your authentication information is incorrect. Please try again.";
         }
     }
-
 
 
 
@@ -346,9 +345,12 @@ public class StartProgram {
         }
     }
 
-    /**getters, setters*/
-    public String getCurrentUser() {
+    public String getCurrentUser(){
         return currentUser;
+    }
+
+    public static void setCurrentUser(String currentUser) {
+        StartProgram.currentUser = currentUser;
     }
 
 }
